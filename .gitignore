@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+build/
+.env*.local
+.vercel
+.DS_Store
+*.log
+data/providers-scraped.json
+tsconfig.tsbuildinfo
+.claude/
+

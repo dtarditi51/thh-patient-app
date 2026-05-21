@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --thh-red: #C8102E;
+  --thh-red-dark: #8B0A1F;
+}
+
+html, body { background: #FAFAF8; color: #1A1A1A; }
+body { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; -webkit-font-smoothing: antialiased; }
+
+@layer components {
+  .container-app { @apply mx-auto w-full max-w-screen-sm px-4 sm:max-w-screen-md md:max-w-screen-lg; }
+  .pill { @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium; }
+  .card { @apply rounded-xl border border-thh-line bg-white p-4; }
+  .card-hover { @apply transition-shadow hover:shadow-sm; }
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-full bg-thh-red px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-thh-red-dark; }
+  .btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-full border border-thh-line bg-white px-5 py-2.5 text-sm font-medium text-thh-ink transition-colors hover:bg-thh-surface; }
+  .tab-active { @apply text-thh-red; }
+  .tab-inactive { @apply text-thh-muted; }
+}

@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Home",
+    "doctors": "Doctors",
+    "locations": "Locations",
+    "learn": "Learn",
+    "portal": "Portal",
+    "appointment": "Request appointment",
+    "services": "Services",
+    "about": "About us"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Welcome",
+      "title": "Same-day cardiology appointments available",
+      "subtitle": "Premier heart and vascular care across South Jersey since 1979.",
+      "cta": "Request appointment",
+      "ctaSecondary": "Find a doctor"
+    },
+    "trust": {
+      "nps": "NPS 92",
+      "npsLabel": "Top 1% of cardiology practices nationally",
+      "physicians": "34 cardiologists",
+      "physiciansLabel": "Board-certified, all subspecialties",
+      "locations": "6 offices",
+      "locationsLabel": "Across southern New Jersey",
+      "hospitals": "9 hospitals",
+      "hospitalsLabel": "Privileges and affiliations"
+    },
+    "quickActions": {
+      "title": "Quick actions",
+      "call": "Call main line",
+      "forms": "New patient forms",
+      "pay": "Pay a bill",
+      "directions": "Get directions"
+    },
+    "education": {
+      "title": "Learn about your heart",
+      "subtitle": "Trusted guides from the American College of Cardiology",
+      "seeAll": "See all topics"
+    }
+  },
+  "doctors": {
+    "title": "Find a doctor",
+    "count": "{count} cardiologists",
+    "searchPlaceholder": "Search by name or specialty",
+    "filterAll": "All locations",
+    "filterSpecialty": "Specialty",
+    "acceptingNew": "Accepting new patients",
+    "bookWith": "Book with {name}",
+    "viewProfile": "View profile",
+    "bio": "About",
+    "education": "Education & training",
+    "languages": "Languages",
+    "reviews": "Patient reviews"
+  },
+  "locations": {
+    "title": "Locations",
+    "subtitle": "6 offices across southern New Jersey",
+    "openUntil": "Open until {time}",
+    "closed": "Closed",
+    "directions": "Directions",
+    "call": "Call",
+    "providersHere": "Providers at this location"
+  },
+  "education": {
+    "title": "Heart health education",
+    "attribution": "Content powered by ACC CardioSmart",
+    "summary": "Summary",
+    "whenToCall": "When to call us",
+    "questionsToAsk": "Questions to ask your doctor",
+    "fullGuide": "Full guide on CardioSmart",
+    "fullGuideEs": "Guía completa en español",
+    "relatedTopics": "Related topics",
+    "bookAppointment": "Book an appointment about this"
+  },
+  "portal": {
+    "title": "Patient portal",
+    "subtitle": "Luma Health Portal",
+    "description": "View test results, message your care team, request refills, and manage appointments.",
+    "signIn": "Sign in to portal",
+    "newPatient": "New here? Get started",
+    "testResults": "View test results",
+    "messages": "Message my care team",
+    "refills": "Refill prescription",
+    "appointments": "My appointments"
+  },
+  "reviews": {
+    "google": "Google reviews",
+    "rater8": "Verified patient reviews",
+    "averageRating": "{rating} out of 5",
+    "basedOn": "Based on {count} reviews",
+    "viewAll": "View all reviews",
+    "poweredByGoogle": "Reviews powered by Google"
+  },
+  "appointment": {
+    "title": "Request appointment",
+    "subtitle": "Tell us what you need and we'll match you to a provider near you.",
+    "reason": "Reason for visit",
+    "reasonNew": "New patient consultation",
+    "reasonFollow": "Follow-up visit",
+    "reasonSecond": "Second opinion",
+    "reasonProcedure": "Specific procedure",
+    "location": "Preferred location",
+    "provider": "Preferred provider (optional)",
+    "timeWindow": "When works best?",
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "anytime": "Anytime",
+    "continue": "Continue",
+    "submit": "Submit request"
+  },
+  "common": {
+    "back": "Back",
+    "loading": "Loading…",
+    "language": "Language",
+    "english": "English",
+    "spanish": "Español"
+  }
+}

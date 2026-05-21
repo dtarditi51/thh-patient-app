@@ -1,0 +1,120 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "doctors": "Médicos",
+    "locations": "Ubicaciones",
+    "learn": "Aprender",
+    "portal": "Portal",
+    "appointment": "Solicitar cita",
+    "services": "Servicios",
+    "about": "Sobre nosotros"
+  },
+  "home": {
+    "hero": {
+      "eyebrow": "Bienvenido",
+      "title": "Citas de cardiología el mismo día disponibles",
+      "subtitle": "Atención cardíaca y vascular de primer nivel en el sur de Jersey desde 1979.",
+      "cta": "Solicitar cita",
+      "ctaSecondary": "Encontrar un médico"
+    },
+    "trust": {
+      "nps": "NPS 92",
+      "npsLabel": "Top 1% de cardiología en EE.UU.",
+      "physicians": "34 cardiólogos",
+      "physiciansLabel": "Certificados, todas las subespecialidades",
+      "locations": "6 oficinas",
+      "locationsLabel": "En el sur de Nueva Jersey",
+      "hospitals": "9 hospitales",
+      "hospitalsLabel": "Privilegios y afiliaciones"
+    },
+    "quickActions": {
+      "title": "Acciones rápidas",
+      "call": "Llamar línea principal",
+      "forms": "Formularios de paciente nuevo",
+      "pay": "Pagar una factura",
+      "directions": "Cómo llegar"
+    },
+    "education": {
+      "title": "Aprenda sobre su corazón",
+      "subtitle": "Guías confiables del Colegio Americano de Cardiología",
+      "seeAll": "Ver todos los temas"
+    }
+  },
+  "doctors": {
+    "title": "Encontrar un médico",
+    "count": "{count} cardiólogos",
+    "searchPlaceholder": "Buscar por nombre o especialidad",
+    "filterAll": "Todas las ubicaciones",
+    "filterSpecialty": "Especialidad",
+    "acceptingNew": "Aceptando nuevos pacientes",
+    "bookWith": "Reservar con {name}",
+    "viewProfile": "Ver perfil",
+    "bio": "Acerca de",
+    "education": "Educación y formación",
+    "languages": "Idiomas",
+    "reviews": "Opiniones de pacientes"
+  },
+  "locations": {
+    "title": "Ubicaciones",
+    "subtitle": "6 oficinas en el sur de Nueva Jersey",
+    "openUntil": "Abierto hasta las {time}",
+    "closed": "Cerrado",
+    "directions": "Direcciones",
+    "call": "Llamar",
+    "providersHere": "Proveedores en esta ubicación"
+  },
+  "education": {
+    "title": "Educación sobre salud cardíaca",
+    "attribution": "Contenido proporcionado por ACC CardioSmart",
+    "summary": "Resumen",
+    "whenToCall": "Cuándo llamarnos",
+    "questionsToAsk": "Preguntas para su médico",
+    "fullGuide": "Guía completa en CardioSmart",
+    "fullGuideEs": "Guía completa en español",
+    "relatedTopics": "Temas relacionados",
+    "bookAppointment": "Reservar una cita sobre esto"
+  },
+  "portal": {
+    "title": "Portal del paciente",
+    "subtitle": "Portal Luma Health",
+    "description": "Vea resultados, envíe mensajes a su equipo, solicite recetas y gestione citas.",
+    "signIn": "Iniciar sesión en el portal",
+    "newPatient": "¿Nuevo aquí? Comenzar",
+    "testResults": "Ver resultados de pruebas",
+    "messages": "Enviar mensaje a mi equipo",
+    "refills": "Renovar receta",
+    "appointments": "Mis citas"
+  },
+  "reviews": {
+    "google": "Reseñas de Google",
+    "rater8": "Reseñas verificadas de pacientes",
+    "averageRating": "{rating} de 5",
+    "basedOn": "Basado en {count} reseñas",
+    "viewAll": "Ver todas las reseñas",
+    "poweredByGoogle": "Reseñas proporcionadas por Google"
+  },
+  "appointment": {
+    "title": "Solicitar cita",
+    "subtitle": "Cuéntenos qué necesita y lo conectaremos con un proveedor cercano.",
+    "reason": "Motivo de la visita",
+    "reasonNew": "Consulta de paciente nuevo",
+    "reasonFollow": "Visita de seguimiento",
+    "reasonSecond": "Segunda opinión",
+    "reasonProcedure": "Procedimiento específico",
+    "location": "Ubicación preferida",
+    "provider": "Proveedor preferido (opcional)",
+    "timeWindow": "¿Cuándo le conviene?",
+    "morning": "Mañana",
+    "afternoon": "Tarde",
+    "anytime": "Cualquier momento",
+    "continue": "Continuar",
+    "submit": "Enviar solicitud"
+  },
+  "common": {
+    "back": "Atrás",
+    "loading": "Cargando…",
+    "language": "Idioma",
+    "english": "English",
+    "spanish": "Español"
+  }
+}
