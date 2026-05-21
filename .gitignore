@@ -9,4 +9,6 @@ build/
 data/providers-scraped.json
 tsconfig.tsbuildinfo
 .claude/
+public/sw.js
+public/workbox-*.js
 

@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AlertCircle, ExternalLink, ChevronRight } from "lucide-react";
 import { educationTopics } from "@/data/education";
 import { TopicIcon } from "@/components/education/TopicIcon";
@@ -10,6 +10,7 @@ export function generateStaticParams() {
 }
 
 export default async function TopicPage({ params: { slug, locale } }: { params: { slug: string; locale: string } }) {
+  setRequestLocale(locale);
   const topic = educationTopics.find((t) => t.slug === slug);
   if (!topic) notFound();
   const t = await getTranslations("education");

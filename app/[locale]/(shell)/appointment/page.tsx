@@ -1,12 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { providers } from "@/data/providers";
 import { locations } from "@/data/locations";
 
 export default function AppointmentPage() {
+  return (
+    <Suspense>
+      <AppointmentForm />
+    </Suspense>
+  );
+}
+
+function AppointmentForm() {
   const t = useTranslations("appointment");
   const search = useSearchParams();
   const preselectedProvider = search.get("provider");

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, Calendar, MapPin, GraduationCap, Languages } from "lucide-react";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { providers, subspecialtyLabels, type Subspecialty } from "@/data/providers";
 import { locations } from "@/data/locations";
 import { Rater8Testimonials } from "@/components/reviews/Rater8Testimonials";
@@ -12,6 +12,7 @@ export function generateStaticParams() {
 }
 
 export default async function DoctorPage({ params: { slug, locale } }: { params: { slug: string; locale: string } }) {
+  setRequestLocale(locale);
   const provider = providers.find((p) => p.slug === slug);
   if (!provider) notFound();
   const t = await getTranslations("doctors");

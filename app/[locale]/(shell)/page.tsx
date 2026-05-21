@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import { Phone, FileText, CreditCard, ChevronRight, Calendar, Star } from "lucide-react";
 import { educationTopics } from "@/data/education";
 import { TopicIcon } from "@/components/education/TopicIcon";
 
-export default function HomePage() {
+export default function HomePage({ params: { locale: routeLocale } }: { params: { locale: string } }) {
+  setRequestLocale(routeLocale);
   const t = useTranslations("home");
   const tNav = useTranslations("nav");
   const locale = useLocale();

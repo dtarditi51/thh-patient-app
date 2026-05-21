@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { MapPin, Phone, Clock } from "lucide-react";
 import { locations, hospitals } from "@/data/locations";
 import { isOpenNow } from "@/lib/utils";
 import { LocationsMap } from "@/components/locations/LocationsMap";
 
 export default async function LocationsPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
   const t = await getTranslations("locations");
 
   return (

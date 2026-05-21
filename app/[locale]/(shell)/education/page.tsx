@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Info } from "lucide-react";
 import { educationTopics } from "@/data/education";
 import { TopicIcon } from "@/components/education/TopicIcon";
 
 export default async function EducationPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
   const t = await getTranslations("education");
   const lang = locale as "en" | "es";
 
