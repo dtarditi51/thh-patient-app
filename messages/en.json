@@ -96,7 +96,7 @@
   },
   "appointment": {
     "title": "Request appointment",
-    "subtitle": "Tell us what you need and we'll match you to a provider near you.",
+    "subtitle": "A scheduler will call you back within one business day.",
     "reason": "Reason for visit",
     "reasonNew": "New patient consultation",
     "reasonFollow": "Follow-up visit",

@@ -96,7 +96,7 @@
   },
   "appointment": {
     "title": "Solicitar cita",
-    "subtitle": "Cuéntenos qué necesita y lo conectaremos con un proveedor cercano.",
+    "subtitle": "Un programador le devolverá la llamada dentro de un día hábil.",
     "reason": "Motivo de la visita",
     "reasonNew": "Consulta de paciente nuevo",
     "reasonFollow": "Visita de seguimiento",
