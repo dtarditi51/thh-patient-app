@@ -60,7 +60,7 @@ export default function HomePage({ params: { locale: routeLocale } }: { params: 
           <QuickActionRow href={`tel:${process.env.NEXT_PUBLIC_MAIN_PHONE || "856-546-3003"}`} Icon={Phone} title={t("quickActions.call")} subtitle="856-546-3003" />
           <QuickActionRow href={`/${locale}/patient-resources/forms`} Icon={FileText} title={t("quickActions.forms")} subtitle="Complete before your visit" />
           <QuickActionRow href="https://www.patientnotebook.com/hearthousecadv" external Icon={CreditCard} title={t("quickActions.pay")} subtitle="Patient Notebook" />
-          <QuickActionRow href={`/${locale}/appointment`} Icon={Calendar} title={tNav("appointment")} subtitle={t("hero.subtitle")} />
+          <QuickActionRow href={`/${locale}/appointment`} Icon={Calendar} title={tNav("appointment")} subtitle={t("quickActions.appointmentSubtitle")} />
         </div>
       </section>
 

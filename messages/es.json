@@ -32,7 +32,8 @@
       "call": "Llamar línea principal",
       "forms": "Formularios de paciente nuevo",
       "pay": "Pagar una factura",
-      "directions": "Cómo llegar"
+      "directions": "Cómo llegar",
+      "appointmentSubtitle": "Citas disponibles el mismo día"
     },
     "education": {
       "title": "Aprenda sobre su corazón",

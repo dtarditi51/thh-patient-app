@@ -32,7 +32,8 @@
       "call": "Call main line",
       "forms": "New patient forms",
       "pay": "Pay a bill",
-      "directions": "Get directions"
+      "directions": "Get directions",
+      "appointmentSubtitle": "Same-day appointments available"
     },
     "education": {
       "title": "Learn about your heart",
