@@ -1,12 +1,11 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { useTranslations, useLocale } from "next-intl";
-import { Search, Calendar, Star } from "lucide-react";
+import { Search } from "lucide-react";
 import { providers, subspecialtyLabels, type Subspecialty } from "@/data/providers";
 import { locations } from "@/data/locations";
+import { ProviderCard } from "@/components/doctors/ProviderCard";
 
 export default function DoctorsPage() {
   const t = useTranslations("doctors");
@@ -60,36 +59,7 @@ export default function DoctorsPage() {
       <ul className="space-y-2">
         {filtered.map((p) => (
           <li key={p.slug}>
-            <Link
-              href={`/${locale}/doctors/${p.slug}`}
-              className="flex items-center gap-3 rounded-xl bg-white p-3 ring-1 ring-thh-line hover:bg-thh-surface"
-            >
-              <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full bg-thh-red-50">
-                {p.photoUrl ? (
-                  <Image src={p.photoUrl} alt={p.name} fill className="object-cover" sizes="56px" />
-                ) : (
-                  <span className="flex h-full w-full items-center justify-center text-sm font-medium text-thh-red">
-                    {p.name.split(" ").map((s) => s[0]).slice(0, 2).join("")}
-                  </span>
-                )}
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="text-sm font-medium">{p.name}, {p.credentials}</div>
-                <div className="truncate text-xs text-thh-muted">
-                  {p.subspecialties.map((s) => subspecialtyLabels[s][lang]).join(" · ")}
-                </div>
-                <div className="mt-1 flex items-center gap-2">
-                  {p.rater8Score && (
-                    <span className="inline-flex items-center gap-0.5 text-xs text-thh-muted">
-                      <Star className="h-3 w-3 fill-thh-red text-thh-red" />
-                      {p.rater8Score.toFixed(1)} ({p.rater8Count})
-                    </span>
-                  )}
-                  {p.acceptingNew && <span className="pill bg-green-50 text-green-800">{t("acceptingNew")}</span>}
-                </div>
-              </div>
-              <Calendar className="h-5 w-5 text-thh-red" />
-            </Link>
+            <ProviderCard provider={p} locale={locale} acceptingNewLabel={t("acceptingNew")} />
           </li>
         ))}
       </ul>

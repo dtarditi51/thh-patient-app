@@ -64,6 +64,27 @@
     "call": "Llamar",
     "providersHere": "Proveedores en esta ubicación"
   },
+  "locationDetail": {
+    "callOffice": "Llamar a esta oficina",
+    "getDirections": "Cómo llegar",
+    "hours": "Horario",
+    "closed": "Cerrado",
+    "providersHere": "Proveedores en esta ubicación",
+    "noProviders": "No hay proveedores listados en esta oficina actualmente.",
+    "viewMap": "Ver en Google Maps",
+    "reviewsHeading": "Reseñas de Google",
+    "reviewsEmpty": "Las reseñas de Google aparecerán aquí una vez verificada la oficina.",
+    "reviewsAttribution": "Reseñas proporcionadas por Google. Atribución requerida según los términos de la API."
+  },
+  "days": {
+    "mon": "Lunes",
+    "tue": "Martes",
+    "wed": "Miércoles",
+    "thu": "Jueves",
+    "fri": "Viernes",
+    "sat": "Sábado",
+    "sun": "Domingo"
+  },
   "education": {
     "title": "Educación sobre salud cardíaca",
     "attribution": "Contenido proporcionado por ACC CardioSmart",

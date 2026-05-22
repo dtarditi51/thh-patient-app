@@ -1,62 +1,108 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { Star } from "lucide-react";
 
-type GoogleReview = { rating: number; text: string; authorName: string; relativeTime: string };
-type GooglePayload = { rating: number; userRatingsTotal: number; reviews: GoogleReview[]; placeUrl: string };
+type GoogleReview = {
+  rating: number;
+  text: string;
+  author_name: string;
+  relative_time_description: string;
+};
 
-export function GoogleReviews({ placeIdEnvKey }: { placeIdEnvKey: string }) {
-  const [data, setData] = useState<GooglePayload | null>(null);
-  const [loading, setLoading] = useState(true);
+type PlaceDetailsResponse = {
+  status: string;
+  result?: {
+    rating?: number;
+    user_ratings_total?: number;
+    url?: string;
+    reviews?: GoogleReview[];
+  };
+};
 
-  useEffect(() => {
-    fetch(`/api/reviews/google?key=${placeIdEnvKey}`)
-      .then((r) => r.json())
-      .then((d) => setData(d))
-      .catch(() => {})
-      .finally(() => setLoading(false));
-  }, [placeIdEnvKey]);
+async function fetchPlaceDetails(placeId: string): Promise<PlaceDetailsResponse["result"] | null> {
+  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
+  if (!apiKey || !placeId) return null;
+  const fields = "rating,user_ratings_total,reviews,url";
+  const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(placeId)}&fields=${fields}&key=${apiKey}&reviews_sort=newest&reviews_no_translations=true`;
+  try {
+    const res = await fetch(url, { next: { revalidate: 86400 } });
+    if (!res.ok) return null;
+    const data: PlaceDetailsResponse = await res.json();
+    if (data.status !== "OK" || !data.result) return null;
+    return data.result;
+  } catch {
+    return null;
+  }
+}
 
-  if (loading) return <div className="text-xs text-thh-muted">Loading Google reviews…</div>;
-  if (!data) return null;
+export async function GoogleReviews({
+  placeId,
+  heading,
+  emptyLabel,
+  attribution
+}: {
+  placeId: string;
+  heading: string;
+  emptyLabel: string;
+  attribution: string;
+}) {
+  const result = await fetchPlaceDetails(placeId);
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between rounded-xl bg-white p-3 ring-1 ring-thh-line">
-        <div className="flex items-center gap-3">
-          <GoogleG />
-          <div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl font-medium">{data.rating.toFixed(1)}</span>
-              <div className="flex">
-                {[1, 2, 3, 4, 5].map((i) => (
-                  <Star key={i} className={`h-3.5 w-3.5 ${i <= Math.round(data.rating) ? "fill-amber-500 text-amber-500" : "text-thh-line"}`} />
-                ))}
+      <div className="flex items-center gap-2">
+        <GoogleG />
+        <h3 className="text-base font-medium">{heading}</h3>
+      </div>
+
+      {!result ? (
+        <p className="text-xs text-thh-muted">{emptyLabel}</p>
+      ) : (
+        <>
+          <div className="flex items-center justify-between rounded-xl bg-white p-3 ring-1 ring-thh-line">
+            <div className="flex items-center gap-3">
+              <GoogleG />
+              <div>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-medium">{(result.rating ?? 0).toFixed(1)}</span>
+                  <div className="flex">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <Star
+                        key={i}
+                        className={`h-3.5 w-3.5 ${i <= Math.round(result.rating ?? 0) ? "fill-amber-500 text-amber-500" : "text-thh-line"}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className="text-xs text-thh-muted">{result.user_ratings_total ?? 0} Google reviews</div>
               </div>
             </div>
-            <div className="text-xs text-thh-muted">{data.userRatingsTotal} Google reviews</div>
+            {result.url && (
+              <a href={result.url} target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-thh-red">
+                View all →
+              </a>
+            )}
           </div>
-        </div>
-        <a href={data.placeUrl} target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-thh-red">
-          View all →
-        </a>
-      </div>
-      <div className="space-y-2">
-        {data.reviews.slice(0, 3).map((r, i) => (
-          <div key={i} className="rounded-xl bg-white p-3 ring-1 ring-thh-line">
-            <div className="flex items-center gap-1">
-              {[1, 2, 3, 4, 5].map((j) => (
-                <Star key={j} className={`h-3 w-3 ${j <= r.rating ? "fill-amber-500 text-amber-500" : "text-thh-line"}`} />
-              ))}
-              <span className="ml-1 text-xs text-thh-muted">{r.relativeTime}</span>
-            </div>
-            <p className="mt-1.5 line-clamp-3 text-sm">{r.text}</p>
-            <p className="mt-1 text-xs text-thh-muted">— {r.authorName}</p>
+
+          <div className="space-y-2">
+            {(result.reviews ?? []).slice(0, 3).map((r, i) => (
+              <div key={i} className="rounded-xl bg-white p-3 ring-1 ring-thh-line">
+                <div className="flex items-center gap-1">
+                  {[1, 2, 3, 4, 5].map((j) => (
+                    <Star
+                      key={j}
+                      className={`h-3 w-3 ${j <= r.rating ? "fill-amber-500 text-amber-500" : "text-thh-line"}`}
+                    />
+                  ))}
+                  <span className="ml-1 text-xs text-thh-muted">{r.relative_time_description}</span>
+                </div>
+                <p className="mt-1.5 line-clamp-3 text-sm">{r.text}</p>
+                <p className="mt-1 text-xs text-thh-muted">— {r.author_name}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <p className="text-[11px] text-thh-muted">Reviews powered by Google. Attribution required per Google API terms.</p>
+        </>
+      )}
+
+      <p className="text-[11px] text-thh-muted">{attribution}</p>
     </div>
   );
 }

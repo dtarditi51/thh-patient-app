@@ -9,7 +9,7 @@ export type Location = {
   lat: number;
   lng: number;
   hours: { day: string; open: string; close: string }[];
-  placeIdEnvKey: string; // env var name holding Google Place ID
+  placeId: string;
 };
 
 export const locations: Location[] = [
@@ -30,7 +30,7 @@ export const locations: Location[] = [
       { day: "Thu", open: "08:00", close: "17:00" },
       { day: "Fri", open: "08:00", close: "17:00" }
     ],
-    placeIdEnvKey: "NEXT_PUBLIC_PLACE_ID_HADDON_HEIGHTS"
+    placeId: "ChIJqYTF4SDMxokRgQH22FhMX-s"
   },
   {
     slug: "marlton",
@@ -49,7 +49,7 @@ export const locations: Location[] = [
       { day: "Thu", open: "08:00", close: "17:00" },
       { day: "Fri", open: "08:00", close: "17:00" }
     ],
-    placeIdEnvKey: "NEXT_PUBLIC_PLACE_ID_MARLTON"
+    placeId: "ChIJ_9hWUTvNxokRDwWanlzTz7w"
   },
   {
     slug: "sewell",
@@ -68,7 +68,7 @@ export const locations: Location[] = [
       { day: "Thu", open: "08:00", close: "17:00" },
       { day: "Fri", open: "08:00", close: "17:00" }
     ],
-    placeIdEnvKey: "NEXT_PUBLIC_PLACE_ID_SEWELL"
+    placeId: "Ej8yNDMgSHVyZmZ2aWxsZSAtIENyb3NzIEtleXMgUmQgc3VpdGUgMTAxLCBTZXdlbGwsIE5KIDA4MDgwLCBVU0EiJRojChYKFAoSCS-QShkW1MaJEXZKXr4RJGaVEglzdWl0ZSAxMDE"
   },
   {
     slug: "woodbury",
@@ -87,7 +87,7 @@ export const locations: Location[] = [
       { day: "Thu", open: "08:00", close: "17:00" },
       { day: "Fri", open: "08:00", close: "17:00" }
     ],
-    placeIdEnvKey: "NEXT_PUBLIC_PLACE_ID_WOODBURY"
+    placeId: "Ej0xOTAgTiBFdmVyZ3JlZW4gQXZlIGJsZGcgMSBzdWl0ZSAxMDIsIFdvb2RidXJ5LCBOSiAwODA5NiwgVVNBIiwaKgoWChQKEgk1aPU248_GiRFeD8pnVKHA-hIQYmxkZyAxIHN1aXRlIDEwMg"
   },
   {
     slug: "elmer",
@@ -106,7 +106,7 @@ export const locations: Location[] = [
       { day: "Thu", open: "08:00", close: "17:00" },
       { day: "Fri", open: "08:00", close: "17:00" }
     ],
-    placeIdEnvKey: "NEXT_PUBLIC_PLACE_ID_ELMER"
+    placeId: "Eio1MjUgU3RhdGUgU3Qgc3VpdGUgMywgRWxtZXIsIE5KIDA4MzE4LCBVU0EiIxohChYKFAoSCUVpkAXDJceJESe0bfsj8kNKEgdzdWl0ZSAz"
   },
   {
     slug: "vineland",
@@ -125,7 +125,7 @@ export const locations: Location[] = [
       { day: "Thu", open: "08:00", close: "17:00" },
       { day: "Fri", open: "08:00", close: "17:00" }
     ],
-    placeIdEnvKey: "NEXT_PUBLIC_PLACE_ID_VINELAND"
+    placeId: "EjUxMDUxIFcgU2hlcm1hbiBBdmUgc3VpdGUgMyBhLCBWaW5lbGFuZCwgTkogMDgzNjAsIFVTQSIlGiMKFgoUChIJnV-au8Qzx4kR2rjZF5Eb-Y0SCXN1aXRlIDMgYQ"
   }
 ];
 

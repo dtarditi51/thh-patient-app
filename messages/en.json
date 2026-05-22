@@ -64,6 +64,27 @@
     "call": "Call",
     "providersHere": "Providers at this location"
   },
+  "locationDetail": {
+    "callOffice": "Call this office",
+    "getDirections": "Get directions",
+    "hours": "Hours",
+    "closed": "Closed",
+    "providersHere": "Providers at this location",
+    "noProviders": "No providers currently listed at this office.",
+    "viewMap": "View on Google Maps",
+    "reviewsHeading": "Reviews from Google",
+    "reviewsEmpty": "Google reviews will appear here once the office is verified.",
+    "reviewsAttribution": "Reviews powered by Google. Attribution required per Google API terms."
+  },
+  "days": {
+    "mon": "Monday",
+    "tue": "Tuesday",
+    "wed": "Wednesday",
+    "thu": "Thursday",
+    "fri": "Friday",
+    "sat": "Saturday",
+    "sun": "Sunday"
+  },
   "education": {
     "title": "Heart health education",
     "attribution": "Content powered by ACC CardioSmart",
