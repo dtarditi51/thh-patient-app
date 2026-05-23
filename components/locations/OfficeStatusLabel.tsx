@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { Clock } from "lucide-react";
 import { nextOpenInfo, type OfficeHours } from "@/lib/officeHours";
+import { useOfficeStatusTick } from "./OfficeStatusTickProvider";
 
 export function OfficeStatusLabel({
   hours,
@@ -14,13 +14,7 @@ export function OfficeStatusLabel({
 }) {
   const t = useTranslations("locations");
   const locale = useLocale();
-  const [now, setNow] = useState<Date | null>(null);
-
-  useEffect(() => {
-    setNow(new Date());
-    const id = window.setInterval(() => setNow(new Date()), 60_000);
-    return () => window.clearInterval(id);
-  }, []);
+  const now = useOfficeStatusTick();
 
   if (!now) {
     return variant === "banner" ? <div className="h-6" /> : <span className="text-xs text-thh-muted">&nbsp;</span>;

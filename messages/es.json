@@ -71,7 +71,8 @@
     "locationDenied": "Permiso de ubicación denegado. Mostrando todas las oficinas.",
     "distanceMiles": "{distance} mi",
     "viewDetails": "Ver detalles",
-    "mapUnavailable": "Mapa no disponible — falta la clave de Google Maps API."
+    "mapUnavailable": "Mapa no disponible — falta la clave de Google Maps API.",
+    "hospitalAffiliations": "Afiliaciones hospitalarias"
   },
   "locationDetail": {
     "callOffice": "Llamar a esta oficina",
@@ -81,6 +82,7 @@
     "providersHere": "Proveedores en esta ubicación",
     "noProviders": "No hay proveedores listados en esta oficina actualmente.",
     "viewMap": "Ver en Google Maps",
+    "mapTitle": "Mapa de la oficina de {name}",
     "reviewsHeading": "Reseñas de Google",
     "reviewsEmpty": "Las reseñas de Google aparecerán aquí una vez verificada la oficina.",
     "reviewsAttribution": "Reseñas proporcionadas por Google. Atribución requerida según los términos de la API."

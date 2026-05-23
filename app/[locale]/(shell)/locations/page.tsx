@@ -19,7 +19,7 @@ export default async function LocationsPage({ params: { locale } }: { params: { 
       <LocationCards />
 
       <section>
-        <h2 className="mb-3 text-base font-medium">Hospital affiliations</h2>
+        <h2 className="mb-3 text-base font-medium">{t("hospitalAffiliations")}</h2>
         <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           {hospitals.map((h) => (
             <a key={h.name} href={h.url} target="_blank" rel="noopener noreferrer" className="rounded-xl bg-white p-3 text-sm ring-1 ring-thh-line hover:bg-thh-surface">

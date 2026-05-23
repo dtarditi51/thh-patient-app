@@ -7,6 +7,7 @@ import { MapPin, Phone, Navigation2 } from "lucide-react";
 import { locations } from "@/data/locations";
 import { haversineMiles } from "@/lib/officeHours";
 import { OfficeStatusLabel } from "./OfficeStatusLabel";
+import { OfficeStatusTickProvider } from "./OfficeStatusTickProvider";
 
 type GeoState =
   | { status: "idle" }
@@ -62,45 +63,47 @@ export function LocationCards() {
         )}
       </div>
 
-      <div className="space-y-2">
-        {sorted.map(({ loc, miles }) => (
-          <div
-            key={loc.slug}
-            className="relative rounded-xl bg-white p-4 ring-1 ring-thh-line hover:bg-thh-surface"
-          >
-            <Link
-              href={`/${locale}/locations/${loc.slug}`}
-              className="absolute inset-0 rounded-xl"
-              aria-label={loc.name}
-            />
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-1.5">
-                  <MapPin className="h-4 w-4 text-thh-red" />
-                  <span className="text-sm font-medium">{loc.name}</span>
-                  {miles !== null && (
-                    <span className="pill bg-thh-red-50 text-thh-red-dark">
-                      {t("distanceMiles", { distance: miles.toFixed(1) })}
-                    </span>
-                  )}
+      <OfficeStatusTickProvider>
+        <div className="space-y-2">
+          {sorted.map(({ loc, miles }) => (
+            <div
+              key={loc.slug}
+              className="relative rounded-xl bg-white p-4 ring-1 ring-thh-line hover:bg-thh-surface"
+            >
+              <Link
+                href={`/${locale}/locations/${loc.slug}`}
+                className="absolute inset-0 rounded-xl"
+                aria-label={loc.name}
+              />
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <MapPin className="h-4 w-4 text-thh-red" />
+                    <span className="text-sm font-medium">{loc.name}</span>
+                    {miles !== null && (
+                      <span className="pill bg-thh-red-50 text-thh-red-dark">
+                        {t("distanceMiles", { distance: miles.toFixed(1) })}
+                      </span>
+                    )}
+                  </div>
+                  <div className="mt-1 text-xs text-thh-muted">{loc.address}</div>
+                  <div className="text-xs text-thh-muted">{loc.city}, NJ {loc.zip}</div>
+                  <div className="mt-2">
+                    <OfficeStatusLabel hours={loc.hours} />
+                  </div>
                 </div>
-                <div className="mt-1 text-xs text-thh-muted">{loc.address}</div>
-                <div className="text-xs text-thh-muted">{loc.city}, NJ {loc.zip}</div>
-                <div className="mt-2">
-                  <OfficeStatusLabel hours={loc.hours} />
-                </div>
+                <a
+                  href={`tel:${loc.phone}`}
+                  className="relative z-10 flex flex-col items-end gap-1"
+                >
+                  <Phone className="h-5 w-5 text-thh-red" />
+                  <span className="text-[11px] text-thh-muted">{loc.phone}</span>
+                </a>
               </div>
-              <a
-                href={`tel:${loc.phone}`}
-                className="relative z-10 flex flex-col items-end gap-1"
-              >
-                <Phone className="h-5 w-5 text-thh-red" />
-                <span className="text-[11px] text-thh-muted">{loc.phone}</span>
-              </a>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </OfficeStatusTickProvider>
     </div>
   );
 }

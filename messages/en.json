@@ -71,7 +71,8 @@
     "locationDenied": "Location permission denied. Showing all offices.",
     "distanceMiles": "{distance} mi",
     "viewDetails": "View details",
-    "mapUnavailable": "Map unavailable — Google Maps API key not configured."
+    "mapUnavailable": "Map unavailable — Google Maps API key not configured.",
+    "hospitalAffiliations": "Hospital affiliations"
   },
   "locationDetail": {
     "callOffice": "Call this office",
@@ -81,6 +82,7 @@
     "providersHere": "Providers at this location",
     "noProviders": "No providers currently listed at this office.",
     "viewMap": "View on Google Maps",
+    "mapTitle": "{name} office map",
     "reviewsHeading": "Reviews from Google",
     "reviewsEmpty": "Google reviews will appear here once the office is verified.",
     "reviewsAttribution": "Reviews powered by Google. Attribution required per Google API terms."

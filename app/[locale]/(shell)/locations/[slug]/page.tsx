@@ -99,7 +99,7 @@ export default async function LocationDetailPage({
           <div className="overflow-hidden rounded-xl ring-1 ring-thh-line">
             <iframe
               src={embedSrc}
-              title={`${location.name} office map`}
+              title={t("mapTitle", { name: location.name })}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
