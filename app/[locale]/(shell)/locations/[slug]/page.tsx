@@ -6,19 +6,11 @@ import { providers } from "@/data/providers";
 import { locales } from "@/i18n";
 import { ProviderCard } from "@/components/doctors/ProviderCard";
 import { GoogleReviews } from "@/components/reviews/GoogleReviews";
-
-const WEEK_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
-type Weekday = (typeof WEEK_DAYS)[number];
+import { OfficeStatusLabel } from "@/components/locations/OfficeStatusLabel";
+import { ORDERED_DAYS, formatHoursRange, type DayKey } from "@/lib/officeHours";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => locations.map((loc) => ({ locale, slug: loc.slug })));
-}
-
-function formatTime12h(hhmm: string): string {
-  const [h, m] = hhmm.split(":").map(Number);
-  const h12 = h % 12 === 0 ? 12 : h % 12;
-  const ampm = h >= 12 ? "PM" : "AM";
-  return `${h12}:${m.toString().padStart(2, "0")} ${ampm}`;
 }
 
 export default async function LocationDetailPage({
@@ -66,19 +58,20 @@ export default async function LocationDetailPage({
         </a>
       </section>
 
-      <section>
-        <h2 className="mb-2 flex items-center gap-1.5 text-base font-medium">
+      <section className="space-y-2">
+        <h2 className="flex items-center gap-1.5 text-base font-medium">
           <Clock className="h-4 w-4" />
           {t("hours")}
         </h2>
+        <OfficeStatusLabel hours={location.hours} variant="banner" />
         <ul className="divide-y divide-thh-line rounded-xl bg-white ring-1 ring-thh-line">
-          {WEEK_DAYS.map((day) => {
-            const entry = location.hours.find((h) => h.day === day);
+          {ORDERED_DAYS.map((day: DayKey) => {
+            const entry = location.hours[day];
             return (
               <li key={day} className="flex items-center justify-between px-3 py-2 text-sm">
-                <span className="font-medium">{tDays(day.toLowerCase() as Lowercase<Weekday>)}</span>
+                <span className="font-medium">{tDays(day)}</span>
                 <span className={entry ? "text-thh-ink" : "text-thh-muted"}>
-                  {entry ? `${formatTime12h(entry.open)} – ${formatTime12h(entry.close)}` : t("closed")}
+                  {entry ? formatHoursRange(entry, locale) : t("closed")}
                 </span>
               </li>
             );

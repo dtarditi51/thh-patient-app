@@ -60,9 +60,18 @@
     "subtitle": "6 oficinas en el sur de Nueva Jersey",
     "openUntil": "Abierto hasta las {time}",
     "closed": "Cerrado",
+    "closedOpensToday": "Cerrado · Abre hoy a las {time}",
+    "closedOpensTomorrow": "Cerrado · Abre mañana a las {time}",
+    "closedOpensWeekday": "Cerrado · Abre {weekday} a las {time}",
     "directions": "Direcciones",
     "call": "Llamar",
-    "providersHere": "Proveedores en esta ubicación"
+    "providersHere": "Proveedores en esta ubicación",
+    "showNearMe": "Ver oficinas cerca de mí",
+    "locating": "Ubicando…",
+    "locationDenied": "Permiso de ubicación denegado. Mostrando todas las oficinas.",
+    "distanceMiles": "{distance} mi",
+    "viewDetails": "Ver detalles",
+    "mapUnavailable": "Mapa no disponible — falta la clave de Google Maps API."
   },
   "locationDetail": {
     "callOffice": "Llamar a esta oficina",
@@ -77,13 +86,13 @@
     "reviewsAttribution": "Reseñas proporcionadas por Google. Atribución requerida según los términos de la API."
   },
   "days": {
-    "mon": "Lunes",
-    "tue": "Martes",
-    "wed": "Miércoles",
-    "thu": "Jueves",
-    "fri": "Viernes",
-    "sat": "Sábado",
-    "sun": "Domingo"
+    "monday": "Lunes",
+    "tuesday": "Martes",
+    "wednesday": "Miércoles",
+    "thursday": "Jueves",
+    "friday": "Viernes",
+    "saturday": "Sábado",
+    "sunday": "Domingo"
   },
   "education": {
     "title": "Educación sobre salud cardíaca",

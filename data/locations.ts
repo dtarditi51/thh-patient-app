@@ -1,3 +1,5 @@
+import type { OfficeHours } from "@/lib/officeHours";
+
 export type Location = {
   slug: string;
   name: string;
@@ -8,8 +10,18 @@ export type Location = {
   phone: string;
   lat: number;
   lng: number;
-  hours: { day: string; open: string; close: string }[];
+  hours: OfficeHours;
   placeId: string;
+};
+
+const standardWeekdayHours: OfficeHours = {
+  monday: { open: "08:00", close: "17:00" },
+  tuesday: { open: "08:00", close: "17:00" },
+  wednesday: { open: "08:00", close: "17:00" },
+  thursday: { open: "08:00", close: "17:00" },
+  friday: { open: "08:00", close: "17:00" },
+  saturday: null,
+  sunday: null
 };
 
 export const locations: Location[] = [
@@ -23,13 +35,7 @@ export const locations: Location[] = [
     phone: "856-546-3003",
     lat: 39.8779,
     lng: -75.0668,
-    hours: [
-      { day: "Mon", open: "08:00", close: "17:00" },
-      { day: "Tue", open: "08:00", close: "17:00" },
-      { day: "Wed", open: "08:00", close: "17:00" },
-      { day: "Thu", open: "08:00", close: "17:00" },
-      { day: "Fri", open: "08:00", close: "17:00" }
-    ],
+    hours: standardWeekdayHours,
     placeId: "ChIJqYTF4SDMxokRgQH22FhMX-s"
   },
   {
@@ -42,13 +48,7 @@ export const locations: Location[] = [
     phone: "856-795-2227",
     lat: 39.8915,
     lng: -74.9213,
-    hours: [
-      { day: "Mon", open: "08:00", close: "17:00" },
-      { day: "Tue", open: "08:00", close: "17:00" },
-      { day: "Wed", open: "08:00", close: "17:00" },
-      { day: "Thu", open: "08:00", close: "17:00" },
-      { day: "Fri", open: "08:00", close: "17:00" }
-    ],
+    hours: standardWeekdayHours,
     placeId: "ChIJ_9hWUTvNxokRDwWanlzTz7w"
   },
   {
@@ -61,13 +61,7 @@ export const locations: Location[] = [
     phone: "856-582-2000",
     lat: 39.7501,
     lng: -75.1140,
-    hours: [
-      { day: "Mon", open: "08:00", close: "17:00" },
-      { day: "Tue", open: "08:00", close: "17:00" },
-      { day: "Wed", open: "08:00", close: "17:00" },
-      { day: "Thu", open: "08:00", close: "17:00" },
-      { day: "Fri", open: "08:00", close: "17:00" }
-    ],
+    hours: standardWeekdayHours,
     placeId: "Ej8yNDMgSHVyZmZ2aWxsZSAtIENyb3NzIEtleXMgUmQgc3VpdGUgMTAxLCBTZXdlbGwsIE5KIDA4MDgwLCBVU0EiJRojChYKFAoSCS-QShkW1MaJEXZKXr4RJGaVEglzdWl0ZSAxMDE"
   },
   {
@@ -80,13 +74,7 @@ export const locations: Location[] = [
     phone: "856-582-2000",
     lat: 39.8398,
     lng: -75.1535,
-    hours: [
-      { day: "Mon", open: "08:00", close: "17:00" },
-      { day: "Tue", open: "08:00", close: "17:00" },
-      { day: "Wed", open: "08:00", close: "17:00" },
-      { day: "Thu", open: "08:00", close: "17:00" },
-      { day: "Fri", open: "08:00", close: "17:00" }
-    ],
+    hours: standardWeekdayHours,
     placeId: "Ej0xOTAgTiBFdmVyZ3JlZW4gQXZlIGJsZGcgMSBzdWl0ZSAxMDIsIFdvb2RidXJ5LCBOSiAwODA5NiwgVVNBIiwaKgoWChQKEgk1aPU248_GiRFeD8pnVKHA-hIQYmxkZyAxIHN1aXRlIDEwMg"
   },
   {
@@ -99,13 +87,7 @@ export const locations: Location[] = [
     phone: "856-358-2363",
     lat: 39.5984,
     lng: -75.1719,
-    hours: [
-      { day: "Mon", open: "08:00", close: "17:00" },
-      { day: "Tue", open: "08:00", close: "17:00" },
-      { day: "Wed", open: "08:00", close: "17:00" },
-      { day: "Thu", open: "08:00", close: "17:00" },
-      { day: "Fri", open: "08:00", close: "17:00" }
-    ],
+    hours: standardWeekdayHours,
     placeId: "Eio1MjUgU3RhdGUgU3Qgc3VpdGUgMywgRWxtZXIsIE5KIDA4MzE4LCBVU0EiIxohChYKFAoSCUVpkAXDJceJESe0bfsj8kNKEgdzdWl0ZSAz"
   },
   {
@@ -118,13 +100,7 @@ export const locations: Location[] = [
     phone: "856-691-8070",
     lat: 39.4862,
     lng: -75.0257,
-    hours: [
-      { day: "Mon", open: "08:00", close: "17:00" },
-      { day: "Tue", open: "08:00", close: "17:00" },
-      { day: "Wed", open: "08:00", close: "17:00" },
-      { day: "Thu", open: "08:00", close: "17:00" },
-      { day: "Fri", open: "08:00", close: "17:00" }
-    ],
+    hours: standardWeekdayHours,
     placeId: "EjUxMDUxIFcgU2hlcm1hbiBBdmUgc3VpdGUgMyBhLCBWaW5lbGFuZCwgTkogMDgzNjAsIFVTQSIlGiMKFgoUChIJnV-au8Qzx4kR2rjZF5Eb-Y0SCXN1aXRlIDMgYQ"
   }
 ];

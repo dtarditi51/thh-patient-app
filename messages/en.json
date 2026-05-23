@@ -60,9 +60,18 @@
     "subtitle": "6 offices across southern New Jersey",
     "openUntil": "Open until {time}",
     "closed": "Closed",
+    "closedOpensToday": "Closed · Opens today at {time}",
+    "closedOpensTomorrow": "Closed · Opens Tomorrow {time}",
+    "closedOpensWeekday": "Closed · Opens {weekday} {time}",
     "directions": "Directions",
     "call": "Call",
-    "providersHere": "Providers at this location"
+    "providersHere": "Providers at this location",
+    "showNearMe": "Show offices near me",
+    "locating": "Locating…",
+    "locationDenied": "Location permission denied. Showing all offices.",
+    "distanceMiles": "{distance} mi",
+    "viewDetails": "View details",
+    "mapUnavailable": "Map unavailable — Google Maps API key not configured."
   },
   "locationDetail": {
     "callOffice": "Call this office",
@@ -77,13 +86,13 @@
     "reviewsAttribution": "Reviews powered by Google. Attribution required per Google API terms."
   },
   "days": {
-    "mon": "Monday",
-    "tue": "Tuesday",
-    "wed": "Wednesday",
-    "thu": "Thursday",
-    "fri": "Friday",
-    "sat": "Saturday",
-    "sun": "Sunday"
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
   },
   "education": {
     "title": "Heart health education",
