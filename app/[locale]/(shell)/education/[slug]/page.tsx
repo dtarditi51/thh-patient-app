@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AlertCircle, ExternalLink, ChevronRight } from "lucide-react";
 import { educationTopics } from "@/data/education";
 import { TopicIcon } from "@/components/education/TopicIcon";
+import { SVTInfographic } from "@/components/education/SVTInfographic";
 
 export function generateStaticParams() {
   return educationTopics.map((t) => ({ slug: t.slug }));
@@ -31,8 +32,14 @@ export default async function TopicPage({ params: { slug, locale } }: { params: 
 
       <section>
         <h2 className="mb-2 text-base font-medium">{t("summary")}</h2>
-        <p className="text-sm leading-relaxed">{topic.summary[lang]}</p>
+        <div className="space-y-3">
+          {(topic.summaryParagraphs?.[lang] ?? [topic.summary[lang]]).map((paragraph, i) => (
+            <p key={i} className="text-sm leading-relaxed">{paragraph}</p>
+          ))}
+        </div>
       </section>
+
+      {topic.infographic === "svt" && <SVTInfographic />}
 
       <section className="rounded-xl border-l-4 border-thh-red bg-thh-red-50 p-4">
         <h2 className="mb-2 flex items-center gap-2 text-base font-medium text-thh-red-dark">
@@ -62,20 +69,44 @@ export default async function TopicPage({ params: { slug, locale } }: { params: 
       </section>
 
       <section className="space-y-3">
-        <a
-          href={cardioSmartUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-between rounded-xl bg-thh-red p-4 text-white hover:bg-thh-red-dark"
-        >
-          <div>
-            <div className="text-sm font-medium">{spanishFallback ? t("fullGuide") + " (English only)" : t("fullGuide")}</div>
-            <div className="text-xs text-white/80">cardiosmart.org</div>
-          </div>
-          <ExternalLink className="h-5 w-5" />
-        </a>
-        {spanishFallback && (
-          <p className="text-xs text-thh-muted">Esta guía aún no está disponible en español en CardioSmart. Le ofrecemos la versión en inglés.</p>
+        {topic.resources ? (
+          <>
+            <h2 className="text-base font-medium">{t("resourcesHeading")}</h2>
+            {topic.resources.map((resource) => (
+              <a
+                key={resource.url}
+                href={resource.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-between rounded-xl bg-white p-4 ring-1 ring-thh-line hover:bg-thh-surface"
+              >
+                <div>
+                  <div className="text-sm font-medium">{resource.title[lang]}</div>
+                  <div className="text-xs text-thh-muted">cardiosmart.org</div>
+                </div>
+                <ExternalLink className="h-5 w-5 text-thh-red" />
+              </a>
+            ))}
+            <p className="text-xs text-thh-muted">{t("resourcesAttribution")}</p>
+          </>
+        ) : (
+          <>
+            <a
+              href={cardioSmartUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between rounded-xl bg-thh-red p-4 text-white hover:bg-thh-red-dark"
+            >
+              <div>
+                <div className="text-sm font-medium">{spanishFallback ? t("fullGuide") + " (English only)" : t("fullGuide")}</div>
+                <div className="text-xs text-white/80">cardiosmart.org</div>
+              </div>
+              <ExternalLink className="h-5 w-5" />
+            </a>
+            {spanishFallback && (
+              <p className="text-xs text-thh-muted">Esta guía aún no está disponible en español en CardioSmart. Le ofrecemos la versión en inglés.</p>
+            )}
+          </>
         )}
         <Link
           href={`/${locale}/appointment?topic=${topic.slug}`}

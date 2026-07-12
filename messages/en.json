@@ -105,7 +105,21 @@
     "fullGuide": "Full guide on CardioSmart",
     "fullGuideEs": "Guía completa en español",
     "relatedTopics": "Related topics",
-    "bookAppointment": "Book an appointment about this"
+    "bookAppointment": "Book an appointment about this",
+    "resourcesHeading": "Learn more",
+    "resourcesAttribution": "Educational resources from the American College of Cardiology's CardioSmart program.",
+    "svtInfographic": {
+      "rateValue": "150–250 bpm",
+      "rateLabel": "typical heart rate during an episode",
+      "prevalenceValue": "~2 in 1,000",
+      "prevalenceLabel": "people in the US affected",
+      "onsetValue": "Starts and stops suddenly",
+      "onsetLabel": "even at rest",
+      "cureValue": "Often curable",
+      "cureLabel": "with catheter ablation",
+      "calloutTitle": "During an episode",
+      "calloutBody": "Only if your care team has shown you how: bear down like a bowel movement, or blow hard against a closed mouth and nose. Ask us which maneuver is right for you."
+    }
   },
   "portal": {
     "title": "Patient portal",

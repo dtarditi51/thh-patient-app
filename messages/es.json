@@ -105,7 +105,21 @@
     "fullGuide": "Guía completa en CardioSmart",
     "fullGuideEs": "Guía completa en español",
     "relatedTopics": "Temas relacionados",
-    "bookAppointment": "Reservar una cita sobre esto"
+    "bookAppointment": "Reservar una cita sobre esto",
+    "resourcesHeading": "Más información",
+    "resourcesAttribution": "Recursos educativos del programa CardioSmart del Colegio Americano de Cardiología.",
+    "svtInfographic": {
+      "rateValue": "150–250 lpm",
+      "rateLabel": "frecuencia cardíaca típica durante un episodio",
+      "prevalenceValue": "~2 de cada 1,000",
+      "prevalenceLabel": "personas afectadas en EE. UU.",
+      "onsetValue": "Empieza y termina de repente",
+      "onsetLabel": "incluso en reposo",
+      "cureValue": "A menudo curable",
+      "cureLabel": "con ablación por catéter",
+      "calloutTitle": "Durante un episodio",
+      "calloutBody": "Solo si su equipo de atención le ha enseñado cómo: puje como si fuera a evacuar, o sople fuerte con la boca y la nariz cerradas. Pregúntenos qué maniobra es adecuada para usted."
+    }
   },
   "portal": {
     "title": "Portal del paciente",

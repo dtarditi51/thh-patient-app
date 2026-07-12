@@ -1,6 +1,8 @@
 // CardioSmart topic mapping. Spanish URLs verified per-topic against cardiosmart.org/es.
 // "esUrl" null means ACC does not yet have a Spanish version; UI falls back to English with a note.
 
+import { PRACTICE_MAIN_PHONE } from "@/lib/practiceInfo";
+
 export type EducationTopic = {
   slug: string;
   icon: string; // lucide icon name
@@ -8,9 +10,16 @@ export type EducationTopic = {
   title: { en: string; es: string };
   blurb: { en: string; es: string };
   summary: { en: string; es: string };
+  // When present, the detail page renders these paragraphs instead of `summary`.
+  summaryParagraphs?: { en: string[]; es: string[] };
   whenToCall: { en: string[]; es: string[] };
   questionsToAsk: { en: string[]; es: string[] };
   cardioSmartUrl: { en: string; es: string | null };
+  // When present, the detail page renders these linkouts (plus ACC attribution)
+  // in place of the single cardioSmartUrl "full guide" button.
+  resources?: { title: { en: string; es: string }; url: string }[];
+  // Key of an original in-app infographic component rendered on the detail page.
+  infographic?: "svt";
   relatedSlugs: string[];
 };
 
@@ -60,6 +69,72 @@ export const educationTopics: EducationTopic[] = [
       es: "https://www.cardiosmart.org/es/temas/fibrilacion-auricular"
     },
     relatedSlugs: ["high-blood-pressure", "heart-failure"]
+  },
+  {
+    // ES strings are machine-translation placeholders pending medical-translator review (see CLAUDE.md).
+    slug: "svt",
+    icon: "Zap",
+    color: "blue",
+    title: { en: "Supraventricular Tachycardia (SVT)", es: "Taquicardia supraventricular (TSV)" },
+    blurb: { en: "Sudden racing heart episodes", es: "Episodios repentinos de corazón acelerado" },
+    summary: {
+      en: "Supraventricular tachycardia is a sudden fast heartbeat that starts in the upper chambers of your heart. Episodes can begin and stop without warning, sometimes while you are resting. Your heart may race between 150 and 250 beats per minute. Most people feel a pounding or fluttering chest, lightheadedness, or shortness of breath, and sometimes chest discomfort. For most people SVT is not dangerous, but a first episode should always be checked by a cardiologist.",
+      es: "La taquicardia supraventricular es un latido rápido y repentino que comienza en las cámaras superiores del corazón. Los episodios pueden empezar y terminar sin aviso, a veces mientras usted descansa. Su corazón puede acelerarse entre 150 y 250 latidos por minuto. La mayoría de las personas sienten palpitaciones o aleteo en el pecho, mareo o falta de aire, y a veces molestia en el pecho. Para la mayoría la TSV no es peligrosa, pero un primer episodio siempre debe ser evaluado por un cardiólogo."
+    },
+    summaryParagraphs: {
+      en: [
+        "Supraventricular tachycardia is a sudden fast heartbeat that starts in the upper chambers of your heart. Episodes can begin and stop without warning, sometimes while you are resting. Your heart may race between 150 and 250 beats per minute. Most people feel a pounding or fluttering chest, lightheadedness, or shortness of breath, and sometimes chest discomfort. For most people SVT is not dangerous, but a first episode should always be checked by a cardiologist.",
+        "Triggers are not always clear. Caffeine, alcohol, stress, and hard exercise set it off for some people. Others notice no pattern at all. Because episodes are brief, a standard ECG in the office can look normal. We often send you home with a wearable monitor for days or weeks to catch the rhythm during everyday life.",
+        "Many episodes stop on their own or with vagal maneuvers your care team teaches you. When episodes are frequent or disruptive, beta-blockers or calcium channel blockers reduce them. Catheter ablation, a minimally invasive procedure done by an electrophysiologist, cures most types of SVT and is a strong option when medication is not enough or not wanted."
+      ],
+      es: [
+        "La taquicardia supraventricular es un latido rápido y repentino que comienza en las cámaras superiores del corazón. Los episodios pueden empezar y terminar sin aviso, a veces mientras usted descansa. Su corazón puede acelerarse entre 150 y 250 latidos por minuto. La mayoría de las personas sienten palpitaciones o aleteo en el pecho, mareo o falta de aire, y a veces molestia en el pecho. Para la mayoría la TSV no es peligrosa, pero un primer episodio siempre debe ser evaluado por un cardiólogo.",
+        "Los desencadenantes no siempre son claros. La cafeína, el alcohol, el estrés y el ejercicio intenso lo provocan en algunas personas. Otras no notan ningún patrón. Como los episodios son breves, un ECG estándar en el consultorio puede verse normal. A menudo le enviamos a casa con un monitor portátil durante días o semanas para captar el ritmo en su vida diaria.",
+        "Muchos episodios se detienen solos o con maniobras vagales que su equipo de atención le enseña. Cuando los episodios son frecuentes o interfieren con su vida, los betabloqueantes o los bloqueadores de los canales de calcio los reducen. La ablación por catéter, un procedimiento mínimamente invasivo realizado por un electrofisiólogo, cura la mayoría de los tipos de TSV y es una buena opción cuando el medicamento no es suficiente o no se desea."
+      ]
+    },
+    whenToCall: {
+      en: [
+        "Call 911 for fainting, severe chest pain, or a racing heart that will not slow",
+        `Otherwise call us at ${PRACTICE_MAIN_PHONE} to review symptoms and plan next steps`
+      ],
+      es: [
+        "Llame al 911 si se desmaya, tiene dolor fuerte de pecho o un corazón acelerado que no baja",
+        `De lo contrario, llámenos al ${PRACTICE_MAIN_PHONE} para revisar sus síntomas y planificar los próximos pasos`
+      ]
+    },
+    questionsToAsk: {
+      en: [
+        "What type of SVT do I have?",
+        "Which vagal maneuver is right for me, and how do I do it safely?",
+        "Do I need a wearable monitor to catch an episode?",
+        "Would medication or catheter ablation be better for me?",
+        "Should I cut back on caffeine or alcohol?"
+      ],
+      es: [
+        "¿Qué tipo de TSV tengo?",
+        "¿Qué maniobra vagal es adecuada para mí y cómo la hago de forma segura?",
+        "¿Necesito un monitor portátil para captar un episodio?",
+        "¿Sería mejor para mí el medicamento o la ablación por catéter?",
+        "¿Debería reducir la cafeína o el alcohol?"
+      ]
+    },
+    cardioSmartUrl: {
+      en: "https://www.cardiosmart.org/topics/supraventricular-tachycardia",
+      es: null
+    },
+    resources: [
+      {
+        title: { en: "CardioSmart SVT Condition Center", es: "Centro de la condición TSV de CardioSmart" },
+        url: "https://www.cardiosmart.org/topics/supraventricular-tachycardia"
+      },
+      {
+        title: { en: "CardioSmart SVT Infographic (PDF)", es: "Infografía de TSV de CardioSmart (PDF)" },
+        url: "https://www.cardiosmart.org/assets/infographic/supraventricular-tachycardia-svt"
+      }
+    ],
+    infographic: "svt",
+    relatedSlugs: ["atrial-fibrillation"]
   },
   {
     slug: "cholesterol",
