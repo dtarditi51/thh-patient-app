@@ -33,7 +33,9 @@
       "forms": "New patient forms",
       "pay": "Pay a bill",
       "directions": "Get directions",
-      "appointmentSubtitle": "Same-day appointments available"
+      "appointmentSubtitle": "Same-day appointments available",
+      "testPrep": "Prep for your test",
+      "testPrepSubtitle": "Nuclear stress, PET/CT, MUGA"
     },
     "education": {
       "title": "Learn about your heart",
@@ -43,17 +45,23 @@
   },
   "doctors": {
     "title": "Find a doctor",
-    "count": "{count} cardiologists",
+    "count": "{count} providers",
     "searchPlaceholder": "Search by name or specialty",
     "filterAll": "All locations",
     "filterSpecialty": "Specialty",
+    "apnsHeading": "Advanced practice nurses",
+    "noResults": "No providers match these filters.",
     "acceptingNew": "Accepting new patients",
     "bookWith": "Book with {name}",
     "viewProfile": "View profile",
     "bio": "About",
     "education": "Education & training",
     "languages": "Languages",
-    "reviews": "Patient reviews"
+    "reviews": "Patient reviews",
+    "backToList": "All cardiologists",
+    "practicesAt": "Practices at",
+    "viewOnSite": "View profile on hearthousenj.com",
+    "reviewsComingSoon": "Verified patient reviews from post-visit surveys will appear here soon."
   },
   "locations": {
     "title": "Locations",
@@ -71,21 +79,27 @@
     "locationDenied": "Location permission denied. Showing all offices.",
     "distanceMiles": "{distance} mi",
     "viewDetails": "View details",
+    "needDirections": "Need directions?",
     "mapUnavailable": "Map unavailable — Google Maps API key not configured.",
     "hospitalAffiliations": "Hospital affiliations"
   },
   "locationDetail": {
     "callOffice": "Call this office",
-    "getDirections": "Get directions",
+    "needDirections": "Need directions?",
     "hours": "Hours",
     "closed": "Closed",
+    "weekdayRange": "Mon – Fri",
+    "weekendClosed": "Closed Saturday and Sunday",
+    "backToList": "All locations",
     "providersHere": "Providers at this location",
     "noProviders": "No providers currently listed at this office.",
     "viewMap": "View on Google Maps",
     "mapTitle": "{name} office map",
     "reviewsHeading": "Reviews from Google",
     "reviewsEmpty": "Google reviews will appear here once the office is verified.",
-    "reviewsAttribution": "Reviews powered by Google. Attribution required per Google API terms."
+    "reviewsAttribution": "Reviews powered by Google. Attribution required per Google API terms.",
+    "reviewsSummarySeeAll": "Read all reviews",
+    "reviewsSummaryCount": "{count, plural, one {# Google review} other {# Google reviews}}"
   },
   "days": {
     "monday": "Monday",
@@ -138,24 +152,29 @@
     "averageRating": "{rating} out of 5",
     "basedOn": "Based on {count} reviews",
     "viewAll": "View all reviews",
-    "poweredByGoogle": "Reviews powered by Google"
+    "poweredByGoogle": "Reviews powered by Google",
+    "homepageHeading": "What patients are saying",
+    "homepageSubhead": "Reviews from our Marlton office on Google",
+    "seeAllAtMarlton": "See all Marlton reviews"
   },
   "appointment": {
-    "title": "Request appointment",
-    "subtitle": "A scheduler will call you back within one business day.",
-    "reason": "Reason for visit",
-    "reasonNew": "New patient consultation",
-    "reasonFollow": "Follow-up visit",
-    "reasonSecond": "Second opinion",
-    "reasonProcedure": "Specific procedure",
-    "location": "Preferred location",
-    "provider": "Preferred provider (optional)",
-    "timeWindow": "When works best?",
-    "morning": "Morning",
-    "afternoon": "Afternoon",
-    "anytime": "Anytime",
-    "continue": "Continue",
-    "submit": "Submit request"
+    "hero": {
+      "title": "Schedule an appointment",
+      "subtitle": "Request an appointment with any of our cardiologists at any of our six offices."
+    },
+    "primaryCta": {
+      "heading": "Request an appointment",
+      "button": "Request an appointment",
+      "context": "You'll be taken to our scheduling page on hearthousenj.com. Our staff will confirm your appointment {window}."
+    },
+    "phoneFallback": {
+      "heading": "Prefer to call?",
+      "callAria": "Call {phone}",
+      "hoursLine": "Our main line is open {hours}."
+    },
+    "returningPatient": {
+      "text": "Already a patient? You can also message your care team through the <link>patient portal</link>."
+    }
   },
   "common": {
     "back": "Back",
@@ -163,5 +182,67 @@
     "language": "Language",
     "english": "English",
     "spanish": "Español"
+  },
+  "pwa": {
+    "install": {
+      "title": "Add Heart House to your home screen",
+      "body": "Faster access to doctors, locations, and your portal.",
+      "install": "Install",
+      "dismiss": "Not now",
+      "dismissAria": "Dismiss install prompt",
+      "iosTitle": "Add Heart House to your iPhone",
+      "iosBody": "Tap the Share button in Safari, then choose \"Add to Home Screen.\"",
+      "iosGotIt": "Got it"
+    },
+    "offline": {
+      "heading": "You are offline",
+      "body": "Some content needs an internet connection. Please reconnect to view doctors, locations, and education.",
+      "retry": "Try again",
+      "phoneIntro": "Need to reach us?"
+    }
+  },
+  "procedures": {
+    "title": "Test & procedure prep",
+    "subtitle": "How to get ready for your test, in your language.",
+    "confirmationCallout": "Our office calls 2-3 days before your test. If we can't reach you, call 856-546-3006 ext. 2250 — radioactive material is ordered specifically for you and can't be saved for later.",
+    "howToPrepare": "How to prepare",
+    "printableLabel": "Printable instructions",
+    "questionsLabel": "Questions about your test?",
+    "ext": "ext.",
+    "backToList": "All tests"
+  },
+  "about": {
+    "hero": {
+      "eyebrow": "About us",
+      "title": "The Heart House and Vascular Care",
+      "positioning": "Comprehensive cardiovascular care across southern New Jersey."
+    },
+    "story": {
+      "heading": "Our story",
+      "p1": "The Heart House and Vascular Care started in 1979 as a small clinical-cardiology group in southern New Jersey. Today the practice covers every cardiology subspecialty across 34 physicians, six offices, and nine hospital affiliations.",
+      "p2": "Physician-owned and physician-led. Affiliated with CVA USA, a national network of independent cardiovascular practices."
+    },
+    "stats": {
+      "heading": "By the numbers",
+      "petCalloutTitle": "Only PET cardiac imaging in southern NJ",
+      "petCalloutBody": "Positron emission tomography offers the most accurate, lowest-radiation assessment of coronary blood flow available today.",
+      "reviewsCalloutTitle": "4.85★ across ~3,700 Google reviews",
+      "reviewsCalloutBody": "Averaged across all six offices. Reviews powered by Google."
+    },
+    "leadership": {
+      "heading": "Leadership",
+      "subhead": "Physician-owned and physician-led.",
+      "viewProfile": "View profile"
+    },
+    "affiliations": {
+      "heading": "Hospital affiliations",
+      "subhead": "Our physicians hold admitting and consulting privileges across nine hospitals in the region.",
+      "visitSite": "Visit hospital site"
+    },
+    "cta": {
+      "heading": "Ready to meet our team?",
+      "findDoctor": "Find a cardiologist",
+      "findLocation": "Find a location"
+    }
   }
 }

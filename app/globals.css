@@ -7,6 +7,7 @@
   --thh-red-dark: #8B0A1F;
 }
 
+html { scroll-behavior: smooth; }
 html, body { background: #FAFAF8; color: #1A1A1A; }
 body { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; -webkit-font-smoothing: antialiased; }
 

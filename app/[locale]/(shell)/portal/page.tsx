@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { ShieldCheck, TestTube, MessageCircle, Pill, CalendarCheck, Bell, ExternalLink } from "lucide-react";
+import { getFcmToken } from "@/lib/firebaseClient";
 
 export default function PortalPage() {
   const t = useTranslations("portal");
+  const locale = useLocale();
   const portalUrl = process.env.NEXT_PUBLIC_PORTAL_URL || "https://portal.hearthousenj.com";
-  const [pushStatus, setPushStatus] = useState<NotificationPermission | "unsupported">("default");
+  const [pushStatus, setPushStatus] = useState<NotificationPermission | "unsupported" | "enabling">("default");
 
   useEffect(() => {
     if (typeof window === "undefined" || !("Notification" in window)) {
@@ -20,15 +22,27 @@ export default function PortalPage() {
   async function enablePush() {
     if (pushStatus === "unsupported") return;
     const perm = await Notification.requestPermission();
-    setPushStatus(perm);
-    if (perm === "granted") {
-      // TODO: register FCM token with /api/subscribe endpoint
-      const reg = await navigator.serviceWorker.ready;
-      const sub = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: process.env.NEXT_PUBLIC_FIREBASE_VAPID_KEY
+    if (perm !== "granted") {
+      setPushStatus(perm);
+      return;
+    }
+    setPushStatus("enabling");
+    try {
+      const token = await getFcmToken();
+      if (!token) {
+        setPushStatus("default");
+        return;
+      }
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token, locale: locale === "es" ? "es" : "en" })
       });
-      await fetch("/api/subscribe", { method: "POST", body: JSON.stringify(sub) });
+      if (!res.ok) throw new Error(`subscribe failed: ${res.status}`);
+      setPushStatus("granted");
+    } catch (err) {
+      console.error("[push] enable failed", err);
+      setPushStatus("default");
     }
   }
 
@@ -68,8 +82,8 @@ export default function PortalPage() {
               <div className="mt-1 text-xs text-thh-muted">
                 Optional push notifications for upcoming appointments, refill reminders, and important updates from your care team.
               </div>
-              <button onClick={enablePush} className="mt-3 btn-primary">
-                Enable notifications
+              <button onClick={enablePush} disabled={pushStatus === "enabling"} className="mt-3 btn-primary disabled:opacity-60">
+                {pushStatus === "enabling" ? "Enabling…" : "Enable notifications"}
               </button>
             </div>
           </div>

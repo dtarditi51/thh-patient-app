@@ -10,7 +10,8 @@ import {
   InfoWindow,
   useMap
 } from "@vis.gl/react-google-maps";
-import { locations } from "@/data/locations";
+import { Navigation } from "lucide-react";
+import { locations, directionsUrl } from "@/data/locations";
 
 const HEART_RED = "#C8102E";
 
@@ -99,6 +100,15 @@ export function LocationsMapImpl({ apiKey }: { apiKey: string }) {
                   >
                     {t("viewDetails")} →
                   </Link>
+                  <a
+                    href={directionsUrl(loc)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-1.5 flex w-full items-center justify-center gap-1.5 rounded-lg bg-thh-red px-3 py-2 text-xs font-medium text-white"
+                  >
+                    <Navigation className="h-3.5 w-3.5" />
+                    {t("needDirections")}
+                  </a>
                 </div>
               </InfoWindow>
             );

@@ -14,6 +14,13 @@ export type Location = {
   placeId: string;
 };
 
+// Directions deep link: place_id alongside lat/lng so Google's UI shows the
+// business name, not a road-level address match. Opens the Google Maps app on
+// phones that have it installed, the Google Maps site otherwise.
+export function directionsUrl(loc: Pick<Location, "lat" | "lng" | "placeId">): string {
+  return `https://www.google.com/maps/dir/?api=1&destination=${loc.lat},${loc.lng}&destination_place_id=${encodeURIComponent(loc.placeId)}`;
+}
+
 const standardWeekdayHours: OfficeHours = {
   monday: { open: "08:00", close: "17:00" },
   tuesday: { open: "08:00", close: "17:00" },
@@ -33,10 +40,10 @@ export const locations: Location[] = [
     state: "NJ",
     zip: "08035",
     phone: "856-546-3003",
-    lat: 39.8779,
-    lng: -75.0668,
+    lat: 39.8817,
+    lng: -75.0583,
     hours: standardWeekdayHours,
-    placeId: "ChIJqYTF4SDMxokRgQH22FhMX-s"
+    placeId: "ChIJER224SDMxokRnZGpI5RGj8A"
   },
   {
     slug: "marlton",
@@ -46,10 +53,10 @@ export const locations: Location[] = [
     state: "NJ",
     zip: "08053",
     phone: "856-795-2227",
-    lat: 39.8915,
-    lng: -74.9213,
+    lat: 39.9078,
+    lng: -74.9406,
     hours: standardWeekdayHours,
-    placeId: "ChIJ_9hWUTvNxokRDwWanlzTz7w"
+    placeId: "ChIJsa3Jm0HLxokRy8KQPqzIfe0"
   },
   {
     slug: "sewell",
@@ -59,10 +66,10 @@ export const locations: Location[] = [
     state: "NJ",
     zip: "08080",
     phone: "856-582-2000",
-    lat: 39.7501,
-    lng: -75.1140,
+    lat: 39.7225,
+    lng: -75.0450,
     hours: standardWeekdayHours,
-    placeId: "Ej8yNDMgSHVyZmZ2aWxsZSAtIENyb3NzIEtleXMgUmQgc3VpdGUgMTAxLCBTZXdlbGwsIE5KIDA4MDgwLCBVU0EiJRojChYKFAoSCS-QShkW1MaJEXZKXr4RJGaVEglzdWl0ZSAxMDE"
+    placeId: "ChIJCYO74qfWxokRDc_wVaGr06U"
   },
   {
     slug: "woodbury",
@@ -72,10 +79,10 @@ export const locations: Location[] = [
     state: "NJ",
     zip: "08096",
     phone: "856-582-2000",
-    lat: 39.8398,
-    lng: -75.1535,
+    lat: 39.8395,
+    lng: -75.1426,
     hours: standardWeekdayHours,
-    placeId: "Ej0xOTAgTiBFdmVyZ3JlZW4gQXZlIGJsZGcgMSBzdWl0ZSAxMDIsIFdvb2RidXJ5LCBOSiAwODA5NiwgVVNBIiwaKgoWChQKEgk1aPU248_GiRFeD8pnVKHA-hIQYmxkZyAxIHN1aXRlIDEwMg"
+    placeId: "ChIJ3dv__GfbxokRaJbDjeL0H6w"
   },
   {
     slug: "elmer",
@@ -85,10 +92,10 @@ export const locations: Location[] = [
     state: "NJ",
     zip: "08318",
     phone: "856-358-2363",
-    lat: 39.5984,
-    lng: -75.1719,
+    lat: 39.5867,
+    lng: -75.1815,
     hours: standardWeekdayHours,
-    placeId: "Eio1MjUgU3RhdGUgU3Qgc3VpdGUgMywgRWxtZXIsIE5KIDA4MzE4LCBVU0EiIxohChYKFAoSCUVpkAXDJceJESe0bfsj8kNKEgdzdWl0ZSAz"
+    placeId: "ChIJzwoNBMMlx4kRzD2Hi9iDtXg"
   },
   {
     slug: "vineland",
@@ -98,10 +105,10 @@ export const locations: Location[] = [
     state: "NJ",
     zip: "08360",
     phone: "856-691-8070",
-    lat: 39.4862,
-    lng: -75.0257,
+    lat: 39.4456,
+    lng: -75.0490,
     hours: standardWeekdayHours,
-    placeId: "EjUxMDUxIFcgU2hlcm1hbiBBdmUgc3VpdGUgMyBhLCBWaW5lbGFuZCwgTkogMDgzNjAsIFVTQSIlGiMKFgoUChIJnV-au8Qzx4kR2rjZF5Eb-Y0SCXN1aXRlIDMgYQ"
+    placeId: "ChIJl6H_xsQzx4kRzWomlkq0jkU"
   }
 ];
 

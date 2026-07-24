@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "scrape:providers": "tsx scripts/scrape-providers.ts"
+    "scrape:providers": "tsx scripts/scrape-providers.ts",
+    "verify:place-ids": "tsx scripts/verify-place-ids.ts",
+    "validate:locations": "tsx scripts/validate-locations.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",
@@ -15,10 +17,12 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tabs": "^1.1.1",
     "@radix-ui/react-toast": "^1.2.2",
+    "@upstash/redis": "^1.38.0",
     "@vis.gl/react-google-maps": "^1.8.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^11.0.2",
+    "firebase-admin": "^13.10.0",
     "lucide-react": "^0.460.0",
     "next": "14.2.18",
     "next-intl": "^3.26.0",

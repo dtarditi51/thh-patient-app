@@ -5,7 +5,17 @@ import { Star } from "lucide-react";
 
 type Review = { rating: number; text: string; author: string; date: string };
 
-export function Rater8Testimonials({ providerSlug, providerName }: { providerSlug: string; providerName: string }) {
+export function Rater8Testimonials({
+  providerSlug,
+  providerName,
+  emptyLabel,
+  loadingLabel
+}: {
+  providerSlug: string;
+  providerName: string;
+  emptyLabel?: string;
+  loadingLabel?: string;
+}) {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [avg, setAvg] = useState<number | null>(null);
   const [count, setCount] = useState<number | null>(null);
@@ -23,8 +33,16 @@ export function Rater8Testimonials({ providerSlug, providerName }: { providerSlu
       .finally(() => setLoading(false));
   }, [providerSlug]);
 
-  if (loading) return <div className="text-xs text-thh-muted">Loading reviews…</div>;
-  if (!reviews.length && !avg) return <div className="text-xs text-thh-muted">Verified reviews coming soon for Dr. {providerName.split(" ").slice(-1)}.</div>;
+  if (loading) {
+    return <div className="text-xs text-thh-muted">{loadingLabel ?? "Loading reviews…"}</div>;
+  }
+  if (!reviews.length && !avg) {
+    return (
+      <div className="rounded-xl bg-white p-4 text-sm text-thh-muted ring-1 ring-thh-line">
+        {emptyLabel ?? `Verified reviews coming soon for Dr. ${providerName.split(" ").slice(-1)}.`}
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-3">

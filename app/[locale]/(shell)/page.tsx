@@ -1,14 +1,21 @@
 import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
-import { Phone, FileText, CreditCard, ChevronRight, Calendar, Star } from "lucide-react";
+import { Phone, FileText, CreditCard, ChevronRight, Calendar, ClipboardList } from "lucide-react";
 import { educationTopics } from "@/data/education";
 import { TopicIcon } from "@/components/education/TopicIcon";
+import { GoogleReviews } from "@/components/reviews/GoogleReviews";
+import { TrustBadge } from "@/components/home/TrustBadge";
+import { locations } from "@/data/locations";
+
+const marlton = locations.find((l) => l.slug === "marlton")!;
 
 export default function HomePage({ params: { locale: routeLocale } }: { params: { locale: string } }) {
   setRequestLocale(routeLocale);
   const t = useTranslations("home");
   const tNav = useTranslations("nav");
+  const tReviews = useTranslations("reviews");
+  const tLocDetail = useTranslations("locationDetail");
   const locale = useLocale();
   const lang = locale as "en" | "es";
 
@@ -36,6 +43,22 @@ export default function HomePage({ params: { locale: routeLocale } }: { params: 
       </section>
 
       <section>
+        <h2 className="text-lg font-medium">{tReviews("homepageHeading")}</h2>
+        <p className="mt-1 mb-3 text-xs text-thh-muted">{tReviews("homepageSubhead")}</p>
+        <GoogleReviews
+          placeId={marlton.placeId}
+          emptyLabel={tLocDetail("reviewsEmpty")}
+          attribution={tLocDetail("reviewsAttribution")}
+          limit={3}
+        />
+        <div className="mt-3">
+          <Link href={`/${locale}/locations/marlton`} className="text-xs font-medium text-thh-red">
+            {tReviews("seeAllAtMarlton")} →
+          </Link>
+        </div>
+      </section>
+
+      <section>
         <div className="mb-3 flex items-baseline justify-between">
           <h2 className="text-lg font-medium">{t("education.title")}</h2>
           <Link href={`/${locale}/education`} className="text-xs text-thh-red">
@@ -58,9 +81,10 @@ export default function HomePage({ params: { locale: routeLocale } }: { params: 
         <h2 className="mb-3 text-lg font-medium">{t("quickActions.title")}</h2>
         <div className="space-y-2">
           <QuickActionRow href={`tel:${process.env.NEXT_PUBLIC_MAIN_PHONE || "856-546-3003"}`} Icon={Phone} title={t("quickActions.call")} subtitle="856-546-3003" />
-          <QuickActionRow href={`/${locale}/patient-resources/forms`} Icon={FileText} title={t("quickActions.forms")} subtitle="Complete before your visit" />
-          <QuickActionRow href="https://www.patientnotebook.com/hearthousecadv" external Icon={CreditCard} title={t("quickActions.pay")} subtitle="Patient Notebook" />
           <QuickActionRow href={`/${locale}/appointment`} Icon={Calendar} title={tNav("appointment")} subtitle={t("quickActions.appointmentSubtitle")} />
+          <QuickActionRow href={`/${locale}/procedures`} Icon={ClipboardList} title={t("quickActions.testPrep")} subtitle={t("quickActions.testPrepSubtitle")} />
+          <QuickActionRow href="https://www.hearthousenj.com/patient-resources/patient-forms" external Icon={FileText} title={t("quickActions.forms")} subtitle="Complete before your visit" />
+          <QuickActionRow href="https://www.patientnotebook.com/hearthousecadv" external Icon={CreditCard} title={t("quickActions.pay")} subtitle="Patient Notebook" />
         </div>
       </section>
 
@@ -74,18 +98,6 @@ export default function HomePage({ params: { locale: routeLocale } }: { params: 
         .topic-bg-amber { background:#FAEEDA; }
         .topic-bg-rose { background:#FCEBEB; }
       `}</style>
-    </div>
-  );
-}
-
-function TrustBadge({ value, label, icon }: { value: string; label: string; icon: "star" | "docs" | "map" | "hospital" }) {
-  return (
-    <div className="rounded-xl bg-white p-3 ring-1 ring-thh-line">
-      <div className="flex items-center gap-1.5">
-        {icon === "star" && <Star className="h-4 w-4 fill-thh-red text-thh-red" />}
-        <div className="text-base font-medium text-thh-ink">{value}</div>
-      </div>
-      <div className="mt-1 text-[11px] leading-tight text-thh-muted">{label}</div>
     </div>
   );
 }

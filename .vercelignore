@@ -1,0 +1,9 @@
+# Files to exclude from `vercel deploy` upload. Independent of .gitignore.
+.env*.local
+*firebase-adminsdk*.json
+firebase-service-account*.json
+provider*details*.csv
+*.docx
+*.xlsx
+url_qrcodecreator*.png
+.DS_Store

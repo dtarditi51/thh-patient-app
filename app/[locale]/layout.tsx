@@ -12,17 +12,28 @@ export function generateStaticParams() {
 }
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://hearthousenj.app"),
   title: "The Heart House and Vascular Care",
   description: "Premier cardiology care in southern New Jersey. 34 cardiologists, 6 offices, same-day appointments.",
-  manifest: "/manifest.json",
-  appleWebApp: { capable: true, statusBarStyle: "default", title: "Heart House" }
+  manifest: "/manifest.webmanifest",
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "Heart House" },
+  icons: {
+    icon: [
+      { url: "/icon-16.png", sizes: "16x16", type: "image/png" },
+      { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" }
+    ],
+    apple: [{ url: "/apple-icon-180.png", sizes: "180x180", type: "image/png" }]
+  }
 };
 
 export const viewport: Viewport = {
   themeColor: "#C8102E",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5
+  maximumScale: 5,
+  viewportFit: "cover"
 };
 
 export default function RootLayout({ children, params: { locale } }: { children: React.ReactNode; params: { locale: string } }) {

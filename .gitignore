@@ -7,8 +7,22 @@ build/
 .DS_Store
 *.log
 data/providers-scraped.json
+# Firebase Admin SDK service account — contains private key, never commit
+*firebase-adminsdk*.json
+firebase-service-account*.json
 tsconfig.tsbuildinfo
 .claude/
 public/sw.js
+public/sw.js.map
 public/workbox-*.js
+public/workbox-*.js.map
+public/fallback-*.js
 
+# Practice documents and operational data at repo root — internal, never commit.
+# "Vercel PUSH ADMIN TOKEN.docx" holds a credential; provider details.* is
+# internal scheduling data referenced by CLAUDE.md as a local source file.
+*.docx
+provider details.*
+url_qrcodecreator*.png
+
+.env*

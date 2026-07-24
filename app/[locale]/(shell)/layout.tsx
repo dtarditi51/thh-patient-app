@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { locales } from "@/i18n";
 import { Header } from "@/components/layout/Header";
 import { BottomNav } from "@/components/layout/BottomNav";
+import { InstallPrompt } from "@/components/InstallPrompt";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -24,6 +25,7 @@ export default async function LocaleLayout({
       <div className="min-h-screen pb-20 md:pb-0">
         <Header />
         <main>{children}</main>
+        <InstallPrompt />
         <BottomNav />
       </div>
     </NextIntlClientProvider>

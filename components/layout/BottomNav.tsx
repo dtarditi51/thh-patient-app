@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Home, Stethoscope, MapPin, BookOpen, UserCircle } from "lucide-react";
+import { Home, Stethoscope, MapPin, BookOpen, UserCircle, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function BottomNav() {
@@ -16,7 +16,8 @@ export function BottomNav() {
     { key: "doctors", href: `/${locale}/doctors`, label: t("doctors"), Icon: Stethoscope },
     { key: "locations", href: `/${locale}/locations`, label: t("locations"), Icon: MapPin },
     { key: "learn", href: `/${locale}/education`, label: t("learn"), Icon: BookOpen },
-    { key: "portal", href: `/${locale}/portal`, label: t("portal"), Icon: UserCircle }
+    { key: "portal", href: `/${locale}/portal`, label: t("portal"), Icon: UserCircle },
+    { key: "about", href: `/${locale}/about`, label: t("about"), Icon: Info }
   ];
 
   function isActive(href: string) {

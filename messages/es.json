@@ -33,7 +33,9 @@
       "forms": "Formularios de paciente nuevo",
       "pay": "Pagar una factura",
       "directions": "Cómo llegar",
-      "appointmentSubtitle": "Citas disponibles el mismo día"
+      "appointmentSubtitle": "Citas disponibles el mismo día",
+      "testPrep": "Preparación para su prueba",
+      "testPrepSubtitle": "Esfuerzo nuclear, PET/CT, MUGA"
     },
     "education": {
       "title": "Aprenda sobre su corazón",
@@ -43,17 +45,23 @@
   },
   "doctors": {
     "title": "Encontrar un médico",
-    "count": "{count} cardiólogos",
+    "count": "{count} proveedores",
     "searchPlaceholder": "Buscar por nombre o especialidad",
     "filterAll": "Todas las ubicaciones",
     "filterSpecialty": "Especialidad",
+    "apnsHeading": "Enfermeros con práctica avanzada",
+    "noResults": "Ningún proveedor coincide con estos filtros.",
     "acceptingNew": "Aceptando nuevos pacientes",
     "bookWith": "Reservar con {name}",
     "viewProfile": "Ver perfil",
     "bio": "Acerca de",
     "education": "Educación y formación",
     "languages": "Idiomas",
-    "reviews": "Opiniones de pacientes"
+    "reviews": "Opiniones de pacientes",
+    "backToList": "Todos los cardiólogos",
+    "practicesAt": "Atiende en",
+    "viewOnSite": "Ver perfil en hearthousenj.com",
+    "reviewsComingSoon": "Las reseñas verificadas de pacientes de encuestas post-visita aparecerán aquí pronto."
   },
   "locations": {
     "title": "Ubicaciones",
@@ -71,21 +79,27 @@
     "locationDenied": "Permiso de ubicación denegado. Mostrando todas las oficinas.",
     "distanceMiles": "{distance} mi",
     "viewDetails": "Ver detalles",
+    "needDirections": "¿Necesita indicaciones?",
     "mapUnavailable": "Mapa no disponible — falta la clave de Google Maps API.",
     "hospitalAffiliations": "Afiliaciones hospitalarias"
   },
   "locationDetail": {
     "callOffice": "Llamar a esta oficina",
-    "getDirections": "Cómo llegar",
+    "needDirections": "¿Necesita indicaciones?",
     "hours": "Horario",
     "closed": "Cerrado",
+    "weekdayRange": "Lun. – Vie.",
+    "weekendClosed": "Cerrado sábado y domingo",
+    "backToList": "Todas las ubicaciones",
     "providersHere": "Proveedores en esta ubicación",
     "noProviders": "No hay proveedores listados en esta oficina actualmente.",
     "viewMap": "Ver en Google Maps",
     "mapTitle": "Mapa de la oficina de {name}",
     "reviewsHeading": "Reseñas de Google",
     "reviewsEmpty": "Las reseñas de Google aparecerán aquí una vez verificada la oficina.",
-    "reviewsAttribution": "Reseñas proporcionadas por Google. Atribución requerida según los términos de la API."
+    "reviewsAttribution": "Reseñas proporcionadas por Google. Atribución requerida según los términos de la API.",
+    "reviewsSummarySeeAll": "Leer todas las reseñas",
+    "reviewsSummaryCount": "{count, plural, one {# reseña de Google} other {# reseñas de Google}}"
   },
   "days": {
     "monday": "Lunes",
@@ -138,24 +152,29 @@
     "averageRating": "{rating} de 5",
     "basedOn": "Basado en {count} reseñas",
     "viewAll": "Ver todas las reseñas",
-    "poweredByGoogle": "Reseñas proporcionadas por Google"
+    "poweredByGoogle": "Reseñas proporcionadas por Google",
+    "homepageHeading": "Lo que dicen nuestros pacientes",
+    "homepageSubhead": "Reseñas de nuestra oficina de Marlton en Google",
+    "seeAllAtMarlton": "Ver todas las reseñas de Marlton"
   },
   "appointment": {
-    "title": "Solicitar cita",
-    "subtitle": "Un programador le devolverá la llamada dentro de un día hábil.",
-    "reason": "Motivo de la visita",
-    "reasonNew": "Consulta de paciente nuevo",
-    "reasonFollow": "Visita de seguimiento",
-    "reasonSecond": "Segunda opinión",
-    "reasonProcedure": "Procedimiento específico",
-    "location": "Ubicación preferida",
-    "provider": "Proveedor preferido (opcional)",
-    "timeWindow": "¿Cuándo le conviene?",
-    "morning": "Mañana",
-    "afternoon": "Tarde",
-    "anytime": "Cualquier momento",
-    "continue": "Continuar",
-    "submit": "Enviar solicitud"
+    "hero": {
+      "title": "Solicitar una cita",
+      "subtitle": "Solicite una cita con cualquiera de nuestros cardiólogos en cualquiera de nuestras seis oficinas."
+    },
+    "primaryCta": {
+      "heading": "Solicitar una cita",
+      "button": "Solicitar una cita",
+      "context": "Será dirigido a nuestra página de programación en hearthousenj.com. Nuestro personal confirmará su cita {window}."
+    },
+    "phoneFallback": {
+      "heading": "¿Prefiere llamar?",
+      "callAria": "Llamar al {phone}",
+      "hoursLine": "Nuestra línea principal está abierta {hours}."
+    },
+    "returningPatient": {
+      "text": "¿Ya es paciente? También puede enviar un mensaje a su equipo de atención a través del <link>portal del paciente</link>."
+    }
   },
   "common": {
     "back": "Atrás",
@@ -163,5 +182,67 @@
     "language": "Idioma",
     "english": "English",
     "spanish": "Español"
+  },
+  "pwa": {
+    "install": {
+      "iosTitle": "Agrega Heart House a tu iPhone",
+      "iosBody": "Toca el botón Compartir en Safari y selecciona \"Añadir a pantalla de inicio.\"",
+      "iosGotIt": "Entendido",
+      "title": "Agregar Heart House a su pantalla de inicio",
+      "body": "Acceso más rápido a médicos, ubicaciones y su portal.",
+      "install": "Instalar",
+      "dismiss": "Ahora no",
+      "dismissAria": "Cerrar aviso de instalación"
+    },
+    "offline": {
+      "heading": "Está sin conexión",
+      "body": "Algún contenido requiere conexión a Internet. Vuelva a conectarse para ver médicos, ubicaciones y educación.",
+      "retry": "Intentar de nuevo",
+      "phoneIntro": "¿Necesita comunicarse con nosotros?"
+    }
+  },
+  "procedures": {
+    "title": "Preparación para pruebas y procedimientos",
+    "subtitle": "Cómo prepararse para su prueba, en su idioma.",
+    "confirmationCallout": "Nuestra oficina llama 2-3 días antes de su prueba. Si no podemos comunicarnos con usted, llame al 856-546-3006 ext. 2250 — el material radiactivo se ordena específicamente para usted y no se puede guardar para después.",
+    "howToPrepare": "Cómo prepararse",
+    "printableLabel": "Instrucciones imprimibles",
+    "questionsLabel": "¿Preguntas sobre su prueba?",
+    "ext": "ext.",
+    "backToList": "Todas las pruebas"
+  },
+  "about": {
+    "hero": {
+      "eyebrow": "Sobre nosotros",
+      "title": "The Heart House and Vascular Care",
+      "positioning": "Atención cardiovascular integral en el sur de Nueva Jersey."
+    },
+    "story": {
+      "heading": "Nuestra historia",
+      "p1": "The Heart House and Vascular Care comenzó en 1979 como un pequeño grupo de cardiología clínica en el sur de Nueva Jersey. Hoy la práctica cubre todas las subespecialidades de cardiología con 34 médicos, seis consultorios y nueve afiliaciones hospitalarias.",
+      "p2": "De propiedad y liderazgo médico. Afiliada a CVA USA, una red nacional de prácticas cardiovasculares independientes."
+    },
+    "stats": {
+      "heading": "En cifras",
+      "petCalloutTitle": "Únicas imágenes cardíacas por PET en el sur de NJ",
+      "petCalloutBody": "La tomografía por emisión de positrones ofrece la evaluación más precisa y con menor radiación del flujo sanguíneo coronario disponible hoy.",
+      "reviewsCalloutTitle": "4,85★ en ~3.700 reseñas de Google",
+      "reviewsCalloutBody": "Promedio en las seis oficinas. Reseñas proporcionadas por Google."
+    },
+    "leadership": {
+      "heading": "Liderazgo",
+      "subhead": "De propiedad y liderazgo médico.",
+      "viewProfile": "Ver perfil"
+    },
+    "affiliations": {
+      "heading": "Afiliaciones hospitalarias",
+      "subhead": "Nuestros médicos tienen privilegios de admisión y consultoría en nueve hospitales de la región.",
+      "visitSite": "Visitar sitio del hospital"
+    },
+    "cta": {
+      "heading": "¿Listo para conocer a nuestro equipo?",
+      "findDoctor": "Encontrar un cardiólogo",
+      "findLocation": "Encontrar una ubicación"
+    }
   }
 }

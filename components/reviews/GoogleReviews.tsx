@@ -1,57 +1,34 @@
 import { Star } from "lucide-react";
-
-type GoogleReview = {
-  rating: number;
-  text: string;
-  author_name: string;
-  relative_time_description: string;
-};
-
-type PlaceDetailsResponse = {
-  status: string;
-  result?: {
-    rating?: number;
-    user_ratings_total?: number;
-    url?: string;
-    reviews?: GoogleReview[];
-  };
-};
-
-async function fetchPlaceDetails(placeId: string): Promise<PlaceDetailsResponse["result"] | null> {
-  const apiKey = process.env.GOOGLE_PLACES_API_KEY;
-  if (!apiKey || !placeId) return null;
-  const fields = "rating,user_ratings_total,reviews,url";
-  const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(placeId)}&fields=${fields}&key=${apiKey}&reviews_sort=newest&reviews_no_translations=true`;
-  try {
-    const res = await fetch(url, { next: { revalidate: 86400 } });
-    if (!res.ok) return null;
-    const data: PlaceDetailsResponse = await res.json();
-    if (data.status !== "OK" || !data.result) return null;
-    return data.result;
-  } catch {
-    return null;
-  }
-}
+import { GoogleG } from "./GoogleG";
+import { fetchPlaceDetails, type PlaceDetailsResult } from "@/lib/googlePlaces";
 
 export async function GoogleReviews({
   placeId,
+  result: prefetched,
   heading,
   emptyLabel,
-  attribution
+  attribution,
+  limit = 3
 }: {
   placeId: string;
-  heading: string;
+  // When the page has already fetched Place Details (e.g. to render a summary
+  // badge above the fold), pass the result in to skip the second fetch.
+  result?: PlaceDetailsResult | null;
+  heading?: string;
   emptyLabel: string;
   attribution: string;
+  limit?: number;
 }) {
-  const result = await fetchPlaceDetails(placeId);
+  const result = prefetched !== undefined ? prefetched : await fetchPlaceDetails(placeId);
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center gap-2">
-        <GoogleG />
-        <h3 className="text-base font-medium">{heading}</h3>
-      </div>
+      {heading && (
+        <div className="flex items-center gap-2">
+          <GoogleG />
+          <h3 className="text-base font-medium">{heading}</h3>
+        </div>
+      )}
 
       {!result ? (
         <p className="text-xs text-thh-muted">{emptyLabel}</p>
@@ -83,7 +60,10 @@ export async function GoogleReviews({
           </div>
 
           <div className="space-y-2">
-            {(result.reviews ?? []).slice(0, 3).map((r, i) => (
+            {(result.reviews ?? [])
+              .filter((r) => r.text?.trim())
+              .slice(0, limit)
+              .map((r, i) => (
               <div key={i} className="rounded-xl bg-white p-3 ring-1 ring-thh-line">
                 <div className="flex items-center gap-1">
                   {[1, 2, 3, 4, 5].map((j) => (
@@ -104,16 +84,5 @@ export async function GoogleReviews({
 
       <p className="text-[11px] text-thh-muted">{attribution}</p>
     </div>
-  );
-}
-
-function GoogleG() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" aria-label="Google">
-      <path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.4c-.2 1.3-1 2.4-2.1 3.1v2.5h3.4c2-1.8 3.2-4.6 3.2-7.5z" />
-      <path fill="#34A853" d="M12 22c2.9 0 5.3-1 7-2.6l-3.4-2.5c-1 .6-2.2 1-3.6 1-2.8 0-5.1-1.9-5.9-4.4H2.6v2.6C4.3 19.5 7.9 22 12 22z" />
-      <path fill="#FBBC05" d="M6.1 13.4c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2V6.8H2.6C1.9 8.4 1.5 10.1 1.5 12s.4 3.6 1.1 5.2l3.5-3.8z" />
-      <path fill="#EA4335" d="M12 5.6c1.6 0 3 .6 4.1 1.6l3-3C17.3 2.6 14.9 1.5 12 1.5c-4.1 0-7.7 2.5-9.4 6.3l3.5 2.6C7 7.4 9.2 5.6 12 5.6z" />
-    </svg>
   );
 }

@@ -1,26 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
+import { fetchRater8Profile } from "@/lib/rater8";
 
-// Rater8 API integration stub. Replace with real Rater8 endpoint once CSM provides:
-//   - API token (or per-provider widget IDs for iframe embed fallback)
-//   - Provider slug → Rater8 provider ID mapping
-// Rater8 typically offers either a REST API for testimonials or embeddable widgets.
-// Decide with vendor: API gives more control; widget is faster to ship.
+// Public Rater8 reviews for our cardiologists. We scrape the SSR'd profile pages
+// at reviews.rater8.com (rather than the vendor API) so the patient app doesn't
+// depend on the still-pending CSM contract. The provider-slug → profile-path
+// allowlist in data/rater8.ts is the trust boundary; this route just forwards.
 
-export const revalidate = 3600;
+export const revalidate = 21600; // 6h
 
 export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get("provider");
-  if (!slug) return NextResponse.json({ error: "Missing provider slug" }, { status: 400 });
-
-  const token = process.env.RATER8_API_TOKEN;
-  if (!token) {
-    // Dev fallback: return empty so UI shows the "coming soon" placeholder.
-    return NextResponse.json({ reviews: [], average: null, count: null });
+  if (!slug) {
+    return NextResponse.json({ error: "Missing provider slug" }, { status: 400 });
   }
-
-  // Placeholder: hit Rater8 API once endpoint and provider ID mapping is confirmed.
-  // const r = await fetch(`https://api.rater8.com/v1/providers/${rater8Id}/reviews`, {
-  //   headers: { Authorization: `Bearer ${token}` }
-  // });
-  return NextResponse.json({ reviews: [], average: null, count: null });
+  const data = await fetchRater8Profile(slug);
+  return NextResponse.json(data);
 }

@@ -1,93 +1,71 @@
-"use client";
+import Link from "next/link";
+import { Phone, ExternalLink } from "lucide-react";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import {
+  APPOINTMENT_CONFIRMATION_WINDOW,
+  PRACTICE_HOURS_DISPLAY,
+  PRACTICE_MAIN_PHONE,
+  PRACTICE_MAIN_PHONE_DISPLAY,
+  PRACTICE_SCHEDULING_URL
+} from "@/lib/practiceInfo";
 
-import { Suspense, useState } from "react";
-import { useTranslations } from "next-intl";
-import { useSearchParams } from "next/navigation";
-import { providers } from "@/data/providers";
-import { locations } from "@/data/locations";
-
-export default function AppointmentPage() {
-  return (
-    <Suspense>
-      <AppointmentForm />
-    </Suspense>
-  );
-}
-
-function AppointmentForm() {
-  const t = useTranslations("appointment");
-  const search = useSearchParams();
-  const preselectedProvider = search.get("provider");
-  const preselectedTopic = search.get("topic");
-
-  const [reason, setReason] = useState("new");
-  const [location, setLocation] = useState(locations[0].slug);
-  const [provider, setProvider] = useState(preselectedProvider || "");
-  const [time, setTime] = useState<"morning" | "afternoon" | "anytime">("morning");
-
-  function submit() {
-    // Forwards to internal scheduling system or external Jotform URL from current site.
-    // Keep parity with https://form.jotform.com/232886377016161 until NextGen Luma scheduling is exposed.
-    const payload = { reason, location, provider, time, topic: preselectedTopic };
-    console.log("appointment request", payload);
-    alert("Submitted. A scheduler will call within one business day.");
-  }
+export default async function AppointmentPage({
+  params: { locale }
+}: {
+  params: { locale: string };
+}) {
+  setRequestLocale(locale);
+  const t = await getTranslations("appointment");
 
   return (
-    <div className="container-app max-w-md space-y-5 py-4 pb-12">
-      <div>
-        <h1 className="text-2xl font-medium">{t("title")}</h1>
-        <p className="mt-1 text-sm text-thh-muted">{t("subtitle")}</p>
-      </div>
+    <div className="container-app space-y-6 py-4 pb-12">
+      <section className="overflow-hidden rounded-2xl bg-gradient-to-br from-thh-red to-thh-red-dark p-6 text-white md:p-8">
+        <h1 className="text-2xl font-medium leading-tight md:text-3xl">{t("hero.title")}</h1>
+        <p className="mt-3 text-sm text-white/90 md:text-base">{t("hero.subtitle")}</p>
+      </section>
 
-      <Field label={t("reason")}>
-        <select value={reason} onChange={(e) => setReason(e.target.value)} className="w-full rounded-lg border border-thh-line bg-white p-2.5 text-sm">
-          <option value="new">{t("reasonNew")}</option>
-          <option value="follow">{t("reasonFollow")}</option>
-          <option value="second">{t("reasonSecond")}</option>
-          <option value="procedure">{t("reasonProcedure")}</option>
-        </select>
-      </Field>
+      <section className="space-y-3 rounded-2xl bg-white p-5 ring-1 ring-thh-line">
+        <h2 className="sr-only">{t("primaryCta.heading")}</h2>
+        {/* TODO: fire analytics event on scheduling handoff click. Wrap in a small client
+            component with onClick once an analytics platform is chosen (Vercel Analytics,
+            GA4, Plausible). Keep this an <a> for accessibility — see CLAUDE.md open question. */}
+        <a
+          href={PRACTICE_SCHEDULING_URL}
+          className="btn-primary w-full justify-center text-base"
+          data-analytics="appointment_handoff_click"
+        >
+          {t("primaryCta.button")}
+          <ExternalLink className="h-4 w-4" />
+        </a>
+        <p className="text-xs leading-relaxed text-thh-muted">
+          {t("primaryCta.context", { window: APPOINTMENT_CONFIRMATION_WINDOW })}
+        </p>
+      </section>
 
-      <Field label={t("location")}>
-        <select value={location} onChange={(e) => setLocation(e.target.value)} className="w-full rounded-lg border border-thh-line bg-white p-2.5 text-sm">
-          {locations.map((l) => <option key={l.slug} value={l.slug}>{l.name}</option>)}
-        </select>
-      </Field>
+      <section className="space-y-2 rounded-2xl bg-white p-5 ring-1 ring-thh-line">
+        <h2 className="text-base font-medium">{t("phoneFallback.heading")}</h2>
+        <a
+          href={`tel:${PRACTICE_MAIN_PHONE}`}
+          className="flex items-center gap-2 text-xl font-medium text-thh-red"
+          aria-label={t("phoneFallback.callAria", { phone: PRACTICE_MAIN_PHONE_DISPLAY })}
+        >
+          <Phone className="h-5 w-5" />
+          {PRACTICE_MAIN_PHONE_DISPLAY}
+        </a>
+        <p className="text-xs text-thh-muted">
+          {t("phoneFallback.hoursLine", { hours: PRACTICE_HOURS_DISPLAY })}
+        </p>
+      </section>
 
-      <Field label={t("provider")}>
-        <select value={provider} onChange={(e) => setProvider(e.target.value)} className="w-full rounded-lg border border-thh-line bg-white p-2.5 text-sm">
-          <option value="">Any cardiologist</option>
-          {providers.map((p) => <option key={p.slug} value={p.slug}>Dr. {p.name}</option>)}
-        </select>
-      </Field>
-
-      <Field label={t("timeWindow")}>
-        <div className="grid grid-cols-3 gap-2">
-          {(["morning", "afternoon", "anytime"] as const).map((opt) => (
-            <button
-              key={opt}
-              onClick={() => setTime(opt)}
-              className={`rounded-lg p-2.5 text-sm ${
-                time === opt ? "bg-thh-red-50 text-thh-red-dark ring-1 ring-thh-red" : "bg-white text-thh-ink ring-1 ring-thh-line"
-              }`}
-            >
-              {t(opt)}
-            </button>
-          ))}
-        </div>
-      </Field>
-
-      <button onClick={submit} className="btn-primary w-full justify-center">{t("submit")}</button>
-    </div>
-  );
-}
-
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <label className="mb-1.5 block text-xs font-medium">{label}</label>
-      {children}
+      <p className="text-xs text-thh-muted">
+        {t.rich("returningPatient.text", {
+          link: (chunks) => (
+            <Link href={`/${locale}/portal`} className="font-medium text-thh-red underline">
+              {chunks}
+            </Link>
+          )
+        })}
+      </p>
     </div>
   );
 }
