@@ -11,6 +11,25 @@ html { scroll-behavior: smooth; }
 html, body { background: #FAFAF8; color: #1A1A1A; }
 body { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; -webkit-font-smoothing: antialiased; }
 
+/* Global keyboard focus. There were previously zero focus styles in the
+   project, and the provider search carried `outline-none` with nothing in its
+   place, which made it invisible to keyboard users. :focus-visible keeps mouse
+   and touch interaction unchanged. */
+:focus-visible {
+  outline: 2px solid var(--thh-red);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 @layer components {
   .container-app { @apply mx-auto w-full max-w-screen-sm px-4 sm:max-w-screen-md md:max-w-screen-lg; }
   .pill { @apply inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium; }
@@ -20,4 +39,51 @@ body { font-feature-settings: "cv02", "cv03", "cv04", "cv11"; -webkit-font-smoot
   .btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-full border border-thh-line bg-white px-5 py-2.5 text-sm font-medium text-thh-ink transition-colors hover:bg-thh-surface; }
   .tab-active { @apply text-thh-red; }
   .tab-inactive { @apply text-thh-muted; }
+
+  /* Off-screen until focused, then pinned top-left above the sticky header. */
+  .skip-link {
+    @apply sr-only;
+  }
+  .skip-link:focus {
+    @apply not-sr-only fixed left-4 top-4 z-[100] rounded-full bg-thh-red px-4 py-2 text-sm font-medium text-white shadow-lg;
+  }
 }
+
+/* ---------------------------------------------------------------------------
+   Topic and procedure tile colors.
+
+   Previously injected as inline <style> blocks duplicated across five page
+   files. The procedure ones had DIFFERENT values under the SAME class names on
+   the list page vs the detail page (.procedure-bg-red was #FFFFFF on the list
+   and #FFE8EC on the detail), so on a client-side transition between them the
+   winner depended on DOM order.
+
+   The two designs are genuinely different — the list tints the icon chip on a
+   white card, the detail tints the hero and leaves the icon white — so they get
+   distinct names rather than being merged.
+
+   Deliberately OUTSIDE @layer: these classes are composed dynamically
+   (`topic-bg-${topic.color}`), so Tailwind's content scanner can't see them and
+   would purge them from a @layer components block.
+--------------------------------------------------------------------------- */
+.topic-bg-red    { background: #FFE8EC; }
+.topic-bg-blue   { background: #E6F1FB; }
+.topic-bg-green  { background: #EAF3DE; }
+.topic-bg-purple { background: #EEEDFE; }
+.topic-bg-teal   { background: #E1F5EE; }
+.topic-bg-pink   { background: #FBEAF0; }
+.topic-bg-amber  { background: #FAEEDA; }
+.topic-bg-rose   { background: #FCEBEB; }
+
+/* List: tinted icon chip on a white card. */
+.procedure-chip-red    { background: #FFE8EC; color: #C8102E; }
+.procedure-chip-blue   { background: #E6F1FB; color: #1A6FBB; }
+.procedure-chip-purple { background: #EEEDFE; color: #6B5BD3; }
+
+/* Detail: tinted hero, white icon chip. */
+.procedure-hero-red    { background: #FFE8EC; }
+.procedure-hero-blue   { background: #E6F1FB; }
+.procedure-hero-purple { background: #EEEDFE; }
+.procedure-heroicon-red    { background: #FFFFFF; color: #C8102E; }
+.procedure-heroicon-blue   { background: #FFFFFF; color: #1A6FBB; }
+.procedure-heroicon-purple { background: #FFFFFF; color: #6B5BD3; }

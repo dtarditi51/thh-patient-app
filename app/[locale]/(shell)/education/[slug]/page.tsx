@@ -1,13 +1,41 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { AlertCircle, ExternalLink, ChevronRight } from "lucide-react";
 import { educationTopics } from "@/data/education";
 import { TopicIcon } from "@/components/education/TopicIcon";
 import { SVTInfographic } from "@/components/education/SVTInfographic";
+import { absoluteUrl, truncateDescription, SITE_NAME } from "@/lib/seo";
 
 export function generateStaticParams() {
   return educationTopics.map((t) => ({ slug: t.slug }));
+}
+
+export async function generateMetadata({
+  params: { slug, locale }
+}: {
+  params: { slug: string; locale: string };
+}): Promise<Metadata> {
+  const topic = educationTopics.find((t) => t.slug === slug);
+  if (!topic) return {};
+  const lang = locale === "es" ? "es" : "en";
+  const title = topic.title[lang];
+  const description = truncateDescription(topic.summary[lang]);
+  const url = absoluteUrl(locale, `/education/${topic.slug}`);
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: `${title} | The Heart House`,
+      description,
+      url,
+      siteName: SITE_NAME
+    },
+    twitter: { card: "summary", title: `${title} | The Heart House`, description }
+  };
 }
 
 export default async function TopicPage({ params: { slug, locale } }: { params: { slug: string; locale: string } }) {
@@ -98,7 +126,12 @@ export default async function TopicPage({ params: { slug, locale } }: { params: 
               className="flex items-center justify-between rounded-xl bg-thh-red p-4 text-white hover:bg-thh-red-dark"
             >
               <div>
-                <div className="text-sm font-medium">{spanishFallback ? t("fullGuide") + " (English only)" : t("fullGuide")}</div>
+                {/* Was t("fullGuide") + " (English only)" — an English clause
+                    string-concatenated onto a translated label, so the Spanish
+                    page read "Guía completa en CardioSmart (English only)". */}
+                <div className="text-sm font-medium">
+                  {spanishFallback ? t("fullGuideEnglishOnly") : t("fullGuide")}
+                </div>
                 <div className="text-xs text-white/80">cardiosmart.org</div>
               </div>
               <ExternalLink className="h-5 w-5" />
@@ -109,7 +142,7 @@ export default async function TopicPage({ params: { slug, locale } }: { params: 
           </>
         )}
         <Link
-          href={`/${locale}/appointment?topic=${topic.slug}`}
+          href={`/appointment?topic=${topic.slug}`}
           className="flex items-center justify-between rounded-xl bg-white p-4 ring-1 ring-thh-line hover:bg-thh-surface"
         >
           <div className="text-sm font-medium">{t("bookAppointment")}</div>
@@ -125,7 +158,7 @@ export default async function TopicPage({ params: { slug, locale } }: { params: 
               const rel = educationTopics.find((tt) => tt.slug === relSlug);
               if (!rel) return null;
               return (
-                <Link key={relSlug} href={`/${locale}/education/${relSlug}`} className="rounded-xl bg-white p-3 ring-1 ring-thh-line hover:bg-thh-surface">
+                <Link key={relSlug} href={`/education/${relSlug}`} className="rounded-xl bg-white p-3 ring-1 ring-thh-line hover:bg-thh-surface">
                   <TopicIcon name={rel.icon} color={rel.color} size={20} />
                   <div className="mt-1.5 text-sm font-medium">{rel.title[lang]}</div>
                 </Link>
@@ -135,16 +168,6 @@ export default async function TopicPage({ params: { slug, locale } }: { params: 
         </section>
       )}
 
-      <style>{`
-        .topic-bg-red { background:#FFE8EC; }
-        .topic-bg-blue { background:#E6F1FB; }
-        .topic-bg-green { background:#EAF3DE; }
-        .topic-bg-purple { background:#EEEDFE; }
-        .topic-bg-teal { background:#E1F5EE; }
-        .topic-bg-pink { background:#FBEAF0; }
-        .topic-bg-amber { background:#FAEEDA; }
-        .topic-bg-rose { background:#FCEBEB; }
-      `}</style>
     </div>
   );
 }

@@ -13,3 +13,15 @@ export const PRACTICE_HOURS_DISPLAY = "Monday through Friday, 8am to 5pm";
 
 // TODO: confirm exact confirmation-window wording with practice ops.
 export const APPOINTMENT_CONFIRMATION_WINDOW = "within one business day";
+
+// Section 1557 expects a covered entity with 15+ employees to designate a
+// coordinator and publish a grievance procedure naming them. No named
+// coordinator has been provided yet, so /nondiscrimination routes grievances to
+// the main office line instead of publishing a placeholder contact.
+//
+// TODO (pre-public-launch): once the practice designates a coordinator, add
+// their name/title/direct contact here and restore the named contact block on
+// /nondiscrimination.
+
+/** TTY relay. 711 is the nationwide Telecommunications Relay Service number. */
+export const TTY_NUMBER = "711";

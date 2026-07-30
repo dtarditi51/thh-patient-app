@@ -1,4 +1,5 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import { Link } from "@/navigation";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { ArrowLeft, MapPin, Phone, Navigation, Clock } from "lucide-react";
@@ -8,6 +9,10 @@ import { locales } from "@/i18n";
 import { ProviderCard } from "@/components/doctors/ProviderCard";
 import { GoogleReviews } from "@/components/reviews/GoogleReviews";
 import { ReviewsSummaryBadge } from "@/components/reviews/ReviewsSummaryBadge";
+import { TrackedLink } from "@/components/TrackedLink";
+import { JsonLd } from "@/components/JsonLd";
+import { locationSchema, breadcrumbSchema } from "@/lib/structuredData";
+import { absoluteUrl, truncateDescription, SITE_NAME } from "@/lib/seo";
 import { OfficeStatusLabel } from "@/components/locations/OfficeStatusLabel";
 import { fetchPlaceDetails } from "@/lib/googlePlaces";
 import {
@@ -37,6 +42,36 @@ const REVIEWS_ANCHOR_ID = "location-reviews";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) => locations.map((loc) => ({ locale, slug: loc.slug })));
+}
+
+export async function generateMetadata({
+  params: { slug, locale }
+}: {
+  params: { slug: string; locale: string };
+}): Promise<Metadata> {
+  const location = locations.find((l) => l.slug === slug);
+  if (!location) return {};
+
+  const count = providers.filter((p) => p.locations.includes(location.slug)).length;
+  const title = `${location.name} Cardiology Office`;
+  const description = truncateDescription(
+    `Cardiology care in ${location.city}, NJ. ${location.address}, ${location.city}, ${location.state} ${location.zip}. ${count} providers. Open Monday through Friday. Call ${location.phone}.`
+  );
+  const url = absoluteUrl(locale, `/locations/${location.slug}`);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      title: `${title} | The Heart House`,
+      description,
+      url,
+      siteName: SITE_NAME
+    },
+    twitter: { card: "summary", title: `${title} | The Heart House`, description }
+  };
 }
 
 export default async function LocationDetailPage({
@@ -76,10 +111,27 @@ export default async function LocationDetailPage({
   // reviews block at the bottom share one Place Details fetch.
   const placeDetails = await fetchPlaceDetails(location.placeId);
 
+  // Only emit aggregateRating when the same numbers are rendered on the page.
+  // schema.org requires the marked-up rating to be visible to the user, and
+  // GoogleReviews / ReviewsSummaryBadge below render exactly this result.
+  const schemaRating =
+    placeDetails?.rating && placeDetails?.user_ratings_total
+      ? { ratingValue: placeDetails.rating, reviewCount: placeDetails.user_ratings_total }
+      : null;
+
   return (
     <div className="container-app space-y-6 py-4 pb-12">
+      <JsonLd
+        data={[
+          locationSchema(location, locale, schemaRating),
+          breadcrumbSchema(locale, [
+            { name: t("backToList"), path: "/locations" },
+            { name: location.name, path: `/locations/${location.slug}` }
+          ])
+        ]}
+      />
       <Link
-        href={`/${locale}/locations`}
+        href="/locations"
         className="inline-flex items-center gap-1 text-sm text-thh-muted hover:text-thh-ink"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -96,14 +148,16 @@ export default async function LocationDetailPage({
           <br />
           {location.city}, {location.state} {location.zip}
         </address>
-        <a
+        <TrackedLink
           href={`tel:${location.phone}`}
-          className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-thh-red"
+          event="tel_tap"
+          eventProps={{ source: "location_detail", office: location.slug }}
+          className="mt-2 inline-flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-thh-red"
           aria-label={t("callOffice")}
         >
-          <Phone className="h-4 w-4" />
+          <Phone className="h-4 w-4" aria-hidden="true" />
           {location.phone}
-        </a>
+        </TrackedLink>
       </section>
 
       <section className="space-y-2">
@@ -160,19 +214,25 @@ export default async function LocationDetailPage({
           </a>
         )}
         <div className="grid grid-cols-2 gap-2">
-          <a href={`tel:${location.phone}`} className="btn-primary w-full justify-center">
-            <Phone className="h-4 w-4" />
+          <TrackedLink
+            href={`tel:${location.phone}`}
+            event="tel_tap"
+            eventProps={{ source: "location_detail_cta", office: location.slug }}
+            className="btn-primary w-full justify-center"
+          >
+            <Phone className="h-4 w-4" aria-hidden="true" />
             {t("callOffice")}
-          </a>
-          <a
+          </TrackedLink>
+          <TrackedLink
             href={directionsHref}
-            target="_blank"
-            rel="noopener noreferrer"
+            event="directions_click"
+            eventProps={{ source: "location_detail", office: location.slug }}
+            external
             className="btn-ghost w-full justify-center"
           >
-            <Navigation className="h-4 w-4 text-thh-red" />
+            <Navigation className="h-4 w-4 text-thh-red" aria-hidden="true" />
             {t("needDirections")}
-          </a>
+          </TrackedLink>
         </div>
       </section>
 

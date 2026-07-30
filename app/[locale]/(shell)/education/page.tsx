@@ -1,8 +1,34 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import { Link } from "@/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Info } from "lucide-react";
 import { educationTopics } from "@/data/education";
 import { TopicIcon } from "@/components/education/TopicIcon";
+import { absoluteUrl, truncateDescription, SITE_NAME } from "@/lib/seo";
+
+export async function generateMetadata({
+  params: { locale }
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "education" });
+  const title = t("title");
+  const description = truncateDescription(t("attribution"));
+  const url = absoluteUrl(locale, "/education");
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      title: `${title} | The Heart House`,
+      description,
+      url,
+      siteName: SITE_NAME
+    },
+    twitter: { card: "summary", title: `${title} | The Heart House`, description }
+  };
+}
 
 export default async function EducationPage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
@@ -24,7 +50,7 @@ export default async function EducationPage({ params: { locale } }: { params: { 
         {educationTopics.map((topic) => (
           <Link
             key={topic.slug}
-            href={`/${locale}/education/${topic.slug}`}
+            href={`/education/${topic.slug}`}
             className="overflow-hidden rounded-xl bg-white ring-1 ring-thh-line hover:bg-thh-surface"
           >
             <div className={`flex h-24 items-center justify-center topic-bg-${topic.color}`}>
@@ -38,16 +64,6 @@ export default async function EducationPage({ params: { locale } }: { params: { 
         ))}
       </div>
 
-      <style>{`
-        .topic-bg-red { background:#FFE8EC; }
-        .topic-bg-blue { background:#E6F1FB; }
-        .topic-bg-green { background:#EAF3DE; }
-        .topic-bg-purple { background:#EEEDFE; }
-        .topic-bg-teal { background:#E1F5EE; }
-        .topic-bg-pink { background:#FBEAF0; }
-        .topic-bg-amber { background:#FAEEDA; }
-        .topic-bg-rose { background:#FCEBEB; }
-      `}</style>
     </div>
   );
 }

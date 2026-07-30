@@ -9,7 +9,9 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "The Heart House and Vascular Care",
     short_name: "Heart House",
     description: "Cardiovascular care across southern New Jersey",
-    start_url: "/en",
+    // "/" not "/en" — localePrefix is "as-needed", so /en 307s to /. A prefixed
+    // start_url costs a redirect on every PWA cold launch.
+    start_url: "/",
     scope: "/",
     display: "standalone",
     orientation: "portrait",

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Download, Share, X } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 // Chrome / Android event interface (not in lib.dom.d.ts).
 type BeforeInstallPromptEvent = Event & {
@@ -74,6 +75,7 @@ export function InstallPrompt() {
     await deferred.prompt();
     const choice = await deferred.userChoice;
     if (choice.outcome === "dismissed") snooze();
+    else track("pwa_install_accepted", { platform: "android" });
     setDeferred(null);
     setHidden(true);
   }
@@ -103,7 +105,7 @@ export function InstallPrompt() {
             <button
               onClick={snooze}
               aria-label={t("dismissAria")}
-              className="-mr-1 -mt-1 rounded-full p-1 text-thh-muted hover:bg-thh-surface"
+              className="-mr-1 -mt-1 flex h-11 w-11 items-center justify-center rounded-full text-thh-muted hover:bg-thh-surface"
             >
               <X className="h-4 w-4" />
             </button>
@@ -139,7 +141,7 @@ export function InstallPrompt() {
           <button
             onClick={snooze}
             aria-label={t("dismissAria")}
-            className="-mr-1 -mt-1 rounded-full p-1 text-thh-muted hover:bg-thh-surface"
+            className="-mr-1 -mt-1 flex h-11 w-11 items-center justify-center rounded-full text-thh-muted hover:bg-thh-surface"
           >
             <X className="h-4 w-4" />
           </button>

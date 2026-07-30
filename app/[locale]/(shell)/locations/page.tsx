@@ -1,7 +1,33 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { hospitals } from "@/data/locations";
 import { LocationsMap } from "@/components/locations/LocationsMap";
 import { LocationCards } from "@/components/locations/LocationCards";
+import { absoluteUrl, truncateDescription, SITE_NAME } from "@/lib/seo";
+
+export async function generateMetadata({
+  params: { locale }
+}: {
+  params: { locale: string };
+}): Promise<Metadata> {
+  const t = await getTranslations({ locale, namespace: "locations" });
+  const title = t("title");
+  const description = truncateDescription(t("subtitle"));
+  const url = absoluteUrl(locale, "/locations");
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "website",
+      title: `${title} | The Heart House`,
+      description,
+      url,
+      siteName: SITE_NAME
+    },
+    twitter: { card: "summary", title: `${title} | The Heart House`, description }
+  };
+}
 
 export default async function LocationsPage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);

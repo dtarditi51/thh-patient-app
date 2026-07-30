@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Stethoscope, MapPin, ArrowRight, Activity } from "lucide-react";
@@ -7,6 +7,9 @@ import { providers } from "@/data/providers";
 import { hospitals } from "@/data/locations";
 import { TrustBadge } from "@/components/home/TrustBadge";
 import { GoogleG } from "@/components/reviews/GoogleG";
+import { JsonLd } from "@/components/JsonLd";
+import { organizationSchema } from "@/lib/structuredData";
+import { absoluteUrl, truncateDescription, SITE_NAME } from "@/lib/seo";
 
 export async function generateMetadata({
   params: { locale }
@@ -14,12 +17,22 @@ export async function generateMetadata({
   params: { locale: string };
 }): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "about" });
-  const title = `${t("hero.title")} — ${t("hero.eyebrow")}`;
-  const description = `${t("hero.positioning")} 34 cardiologists, 6 offices across southern New Jersey, privileges at Cooper, Jefferson, Virtua, Inspira, and Our Lady of Lourdes.`;
+  // Just the section name — the root layout template appends "| The Heart House".
+  const title = t("hero.eyebrow");
+  // Was: translated positioning + a hardcoded English clause, which made the
+  // Spanish <meta description> half English. Now fully localized.
+  const description = truncateDescription(t("metaDescription"));
   return {
     title,
     description,
-    openGraph: { title, description, type: "website" },
+    alternates: { canonical: absoluteUrl(locale, "/about") },
+    openGraph: {
+      type: "website",
+      title: `${title} | The Heart House`,
+      description,
+      url: absoluteUrl(locale, "/about"),
+      siteName: SITE_NAME
+    },
     keywords: [
       "cardiologist southern New Jersey",
       "South Jersey heart doctor",
@@ -44,6 +57,9 @@ export default async function AboutPage({
 
   return (
     <div className="container-app space-y-10 py-4 pb-12">
+      {/* Practice-level identity node. Every location's MedicalClinic schema
+          points back at this via parentOrganization @id. */}
+      <JsonLd data={organizationSchema()} />
       {/* Hero */}
       {/* TODO: replace gradient with a real photo collage of offices or team once available */}
       <section className="overflow-hidden rounded-2xl bg-gradient-to-br from-thh-red to-thh-red-dark p-6 text-white md:p-8">
@@ -110,14 +126,14 @@ export default async function AboutPage({
         {leaders.length === 0 ? (
           <p className="text-xs text-thh-muted">
             {/* TODO (dev-only): leadership cards will appear once leadershipRole is set on providers */}
-            Leadership roster pending.
+            {t("leadership.pending")}
           </p>
         ) : (
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {leaders.map((leader) => (
               <Link
                 key={leader.slug}
-                href={`/${locale}/doctors/${leader.slug}`}
+                href={`/doctors/${leader.slug}`}
                 className="flex items-center gap-4 rounded-2xl bg-white p-4 ring-1 ring-thh-line hover:bg-thh-surface"
               >
                 <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full bg-thh-red-50">
@@ -177,11 +193,11 @@ export default async function AboutPage({
       <section className="space-y-3 rounded-2xl bg-thh-surface p-5 ring-1 ring-thh-line">
         <h2 className="text-lg font-medium">{t("cta.heading")}</h2>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          <Link href={`/${locale}/doctors`} className="btn-primary w-full justify-center">
+          <Link href="/doctors" className="btn-primary w-full justify-center">
             <Stethoscope className="h-4 w-4" />
             {t("cta.findDoctor")}
           </Link>
-          <Link href={`/${locale}/locations`} className="btn-ghost w-full justify-center">
+          <Link href="/locations" className="btn-ghost w-full justify-center">
             <MapPin className="h-4 w-4" />
             {t("cta.findLocation")}
           </Link>

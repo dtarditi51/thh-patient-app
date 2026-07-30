@@ -1,6 +1,7 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import {
   ArrowLeft,
   Phone,
@@ -14,9 +15,61 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { providers, subspecialtyLabels, type Subspecialty } from "@/data/providers";
 import { locations } from "@/data/locations";
 import { Rater8Testimonials } from "@/components/reviews/Rater8Testimonials";
+import { TrackedLink } from "@/components/TrackedLink";
+import { JsonLd } from "@/components/JsonLd";
+import { providerSchema, breadcrumbSchema } from "@/lib/structuredData";
+import { absoluteUrl, truncateDescription, SITE_NAME } from "@/lib/seo";
+import { PRACTICE_MAIN_PHONE, PRACTICE_MAIN_PHONE_DISPLAY } from "@/lib/practiceInfo";
 
 export function generateStaticParams() {
   return providers.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params: { slug, locale }
+}: {
+  params: { slug: string; locale: string };
+}): Promise<Metadata> {
+  const provider = providers.find((p) => p.slug === slug);
+  if (!provider) return {};
+
+  const lang = locale === "es" ? "es" : "en";
+  const specialties = provider.subspecialties
+    .map((s) => subspecialtyLabels[s as Subspecialty][lang])
+    .join(", ");
+  const offices = locations
+    .filter((l) => provider.locations.includes(l.slug))
+    .map((l) => l.city);
+
+  const title = `${provider.name}, ${provider.credentials}`;
+  // Prefer the real bio; fall back to a composed line so no provider page ships
+  // a description identical to another's.
+  const description = truncateDescription(
+    provider.bio ||
+      `${provider.name}, ${provider.credentials} — ${specialties} at The Heart House and Vascular Care${
+        offices.length ? ` in ${offices.join(", ")}, NJ` : ""
+      }.`
+  );
+  const url = absoluteUrl(locale, `/doctors/${provider.slug}`);
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "profile",
+      title: `${title} | The Heart House`,
+      description,
+      url,
+      siteName: SITE_NAME,
+      ...(provider.photoUrl ? { images: [{ url: provider.photoUrl }] } : {})
+    },
+    twitter: {
+      card: "summary",
+      title: `${title} | The Heart House`,
+      description
+    }
+  };
 }
 
 // Some scraped bios use `\n\n` to separate paragraphs. Rendering the whole
@@ -52,8 +105,17 @@ export default async function DoctorPage({ params: { slug, locale } }: { params:
 
   return (
     <div className="container-app space-y-6 py-4 pb-12">
+      <JsonLd
+        data={[
+          providerSchema(provider, locale, locs),
+          breadcrumbSchema(locale, [
+            { name: t("backToList"), path: "/doctors" },
+            { name: provider.name, path: `/doctors/${provider.slug}` }
+          ])
+        ]}
+      />
       <Link
-        href={`/${locale}/doctors`}
+        href="/doctors"
         className="inline-flex items-center gap-1 text-sm text-thh-muted hover:text-thh-ink"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -80,14 +142,19 @@ export default async function DoctorPage({ params: { slug, locale } }: { params:
       </div>
 
       <div className="flex flex-wrap gap-2">
-        <Link href={`/${locale}/appointment?provider=${provider.slug}`} className="btn-primary">
+        <Link href={`/appointment?provider=${provider.slug}`} className="btn-primary">
           <Calendar className="h-4 w-4" />
           {t("bookWith", { name: provider.name })}
         </Link>
-        <a href={`tel:${process.env.NEXT_PUBLIC_MAIN_PHONE || "856-546-3003"}`} className="btn-ghost">
-          <Phone className="h-4 w-4" />
-          856-546-3003
-        </a>
+        <TrackedLink
+          href={`tel:${PRACTICE_MAIN_PHONE}`}
+          event="tel_tap"
+          eventProps={{ source: "provider", provider: provider.slug }}
+          className="btn-ghost"
+        >
+          <Phone className="h-4 w-4" aria-hidden="true" />
+          {PRACTICE_MAIN_PHONE_DISPLAY}
+        </TrackedLink>
       </div>
 
       {provider.profileUrl && (
@@ -152,7 +219,7 @@ export default async function DoctorPage({ params: { slug, locale } }: { params:
           {locs.map((loc) => (
             <Link
               key={loc.slug}
-              href={`/${locale}/locations/${loc.slug}`}
+              href={`/locations/${loc.slug}`}
               className="block rounded-xl bg-white p-3 ring-1 ring-thh-line hover:bg-thh-surface"
             >
               <div className="text-sm font-medium">{loc.name}</div>

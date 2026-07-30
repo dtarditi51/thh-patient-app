@@ -1,4 +1,5 @@
 import { Star } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { GoogleG } from "./GoogleG";
 import { fetchPlaceDetails, type PlaceDetailsResult } from "@/lib/googlePlaces";
 
@@ -20,6 +21,10 @@ export async function GoogleReviews({
   limit?: number;
 }) {
   const result = prefetched !== undefined ? prefetched : await fetchPlaceDetails(placeId);
+  // reviews.google / reviews.viewAll / reviews.averageRating were already
+  // defined in messages/*.json and sitting unused while this component
+  // hardcoded English equivalents.
+  const t = await getTranslations("reviews");
 
   return (
     <div className="space-y-3">
@@ -40,21 +45,28 @@ export async function GoogleReviews({
               <div>
                 <div className="flex items-baseline gap-2">
                   <span className="text-2xl font-medium">{(result.rating ?? 0).toFixed(1)}</span>
-                  <div className="flex">
+                  <div
+                    className="flex"
+                    role="img"
+                    aria-label={t("averageRating", { rating: (result.rating ?? 0).toFixed(1) })}
+                  >
                     {[1, 2, 3, 4, 5].map((i) => (
                       <Star
                         key={i}
+                        aria-hidden="true"
                         className={`h-3.5 w-3.5 ${i <= Math.round(result.rating ?? 0) ? "fill-amber-500 text-amber-500" : "text-thh-line"}`}
                       />
                     ))}
                   </div>
                 </div>
-                <div className="text-xs text-thh-muted">{result.user_ratings_total ?? 0} Google reviews</div>
+                <div className="text-xs text-thh-muted">
+                  {t("googleCount", { count: result.user_ratings_total ?? 0 })}
+                </div>
               </div>
             </div>
             {result.url && (
               <a href={result.url} target="_blank" rel="noopener noreferrer" className="text-xs font-medium text-thh-red">
-                View all →
+                {t("viewAll")} →
               </a>
             )}
           </div>
@@ -65,10 +77,11 @@ export async function GoogleReviews({
               .slice(0, limit)
               .map((r, i) => (
               <div key={i} className="rounded-xl bg-white p-3 ring-1 ring-thh-line">
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1" role="img" aria-label={t("averageRating", { rating: r.rating })}>
                   {[1, 2, 3, 4, 5].map((j) => (
                     <Star
                       key={j}
+                      aria-hidden="true"
                       className={`h-3 w-3 ${j <= r.rating ? "fill-amber-500 text-amber-500" : "text-thh-line"}`}
                     />
                   ))}

@@ -35,7 +35,9 @@
       "directions": "Cómo llegar",
       "appointmentSubtitle": "Citas disponibles el mismo día",
       "testPrep": "Preparación para su prueba",
-      "testPrepSubtitle": "Esfuerzo nuclear, PET/CT, MUGA"
+      "testPrepSubtitle": "Esfuerzo nuclear, PET/CT, MUGA",
+      "formsSubtitle": "Complete antes de su visita",
+      "paySubtitle": "Patient Notebook"
     },
     "education": {
       "title": "Aprenda sobre su corazón",
@@ -61,7 +63,10 @@
     "backToList": "Todos los cardiólogos",
     "practicesAt": "Atiende en",
     "viewOnSite": "Ver perfil en hearthousenj.com",
-    "reviewsComingSoon": "Las reseñas verificadas de pacientes de encuestas post-visita aparecerán aquí pronto."
+    "reviewsComingSoon": "Las reseñas verificadas de pacientes de encuestas post-visita aparecerán aquí pronto.",
+    "searchLabel": "Buscar proveedores por nombre",
+    "filterLocationGroup": "Filtrar por ubicación",
+    "filterSpecialtyGroup": "Filtrar por especialidad"
   },
   "locations": {
     "title": "Ubicaciones",
@@ -133,7 +138,8 @@
       "cureLabel": "con ablación por catéter",
       "calloutTitle": "Durante un episodio",
       "calloutBody": "Solo si su equipo de atención le ha enseñado cómo: puje como si fuera a evacuar, o sople fuerte con la boca y la nariz cerradas. Pregúntenos qué maniobra es adecuada para usted."
-    }
+    },
+    "fullGuideEnglishOnly": "Guía completa en CardioSmart (solo en inglés)"
   },
   "portal": {
     "title": "Portal del paciente",
@@ -144,7 +150,17 @@
     "testResults": "Ver resultados de pruebas",
     "messages": "Enviar mensaje a mi equipo",
     "refills": "Renovar receta",
-    "appointments": "Mis citas"
+    "appointments": "Mis citas",
+    "push": {
+      "title": "Reciba recordatorios de citas",
+      "body": "Notificaciones opcionales sobre próximas citas y nuevos mensajes del portal. Nunca enviamos detalles clínicos.",
+      "enable": "Activar notificaciones",
+      "enabling": "Activando…",
+      "enabled": "Las notificaciones están activadas",
+      "blocked": "Las notificaciones están bloqueadas en la configuración de su navegador.",
+      "unsupported": "Su navegador no admite notificaciones.",
+      "error": "No pudimos activar las notificaciones. Inténtelo de nuevo."
+    }
   },
   "reviews": {
     "google": "Reseñas de Google",
@@ -155,7 +171,10 @@
     "poweredByGoogle": "Reseñas proporcionadas por Google",
     "homepageHeading": "Lo que dicen nuestros pacientes",
     "homepageSubhead": "Reseñas de nuestra oficina de Marlton en Google",
-    "seeAllAtMarlton": "Ver todas las reseñas de Marlton"
+    "seeAllAtMarlton": "Ver todas las reseñas de Marlton",
+    "googleCount": "{count, plural, one {# reseña de Google} other {# reseñas de Google}}",
+    "rater8BasedOn": "Basado en {count} reseñas verificadas de pacientes",
+    "rater8Attribution": "Verificado por Rater8 a partir de encuestas posteriores a la visita. Cumple con HIPAA."
   },
   "appointment": {
     "hero": {
@@ -181,7 +200,10 @@
     "loading": "Cargando…",
     "language": "Idioma",
     "english": "English",
-    "spanish": "Español"
+    "spanish": "Español",
+    "call": "Llamar",
+    "callAria": "Llamar al {phone}",
+    "skipToContent": "Saltar al contenido principal"
   },
   "pwa": {
     "install": {
@@ -232,7 +254,8 @@
     "leadership": {
       "heading": "Liderazgo",
       "subhead": "De propiedad y liderazgo médico.",
-      "viewProfile": "Ver perfil"
+      "viewProfile": "Ver perfil",
+      "pending": "Directiva pendiente."
     },
     "affiliations": {
       "heading": "Afiliaciones hospitalarias",
@@ -243,6 +266,70 @@
       "heading": "¿Listo para conocer a nuestro equipo?",
       "findDoctor": "Encontrar un cardiólogo",
       "findLocation": "Encontrar una ubicación"
+    },
+    "metaDescription": "Cardiología de propiedad médica en el sur de Nueva Jersey desde 1979. 34 cardiólogos certificados, 6 consultorios y privilegios en Cooper, Jefferson, Virtua, Inspira y Our Lady of Lourdes."
+  },
+  "errors": {
+    "notFound": {
+      "title": "No encontramos esa página",
+      "body": "Es posible que el enlace esté desactualizado o que la página se haya movido. Pruebe la página principal o llámenos y le indicaremos el camino.",
+      "home": "Ir a la página principal",
+      "findDoctor": "Buscar un médico"
+    },
+    "callIntro": "¿Necesita comunicarse con nosotros?",
+    "error": {
+      "title": "Algo salió mal",
+      "body": "Tuvimos un problema inesperado al cargar esta página. Volver a intentarlo suele resolverlo.",
+      "retry": "Intentar de nuevo"
     }
+  },
+  "footer": {
+    "practiceName": "The Heart House and Vascular Care",
+    "tagline": "Atención cardiovascular en el sur de Nueva Jersey desde 1979.",
+    "policiesHeading": "Políticas",
+    "contactHeading": "Contacto",
+    "privacy": "Política de privacidad",
+    "hipaa": "Aviso de HIPAA",
+    "npp": "Notice of Privacy Practices",
+    "nppEs": "Aviso de Prácticas de Privacidad",
+    "terms": "Términos de uso",
+    "nondiscrimination": "Aviso de no discriminación",
+    "accessibility": "Declaración de accesibilidad",
+    "mainLine": "Línea principal",
+    "tty": "TTY",
+    "emergency": "Si se trata de una emergencia médica, llame al 911. No use esta aplicación para reportar una emergencia.",
+    "notMedicalAdvice": "Esta aplicación ofrece educación general sobre la salud y no reemplaza el consejo médico de su equipo de atención.",
+    "copyright": "© {year} The Heart House and Vascular Care. Todos los derechos reservados.",
+    "nondiscriminationShort": "The Heart House and Vascular Care cumple con las leyes federales de derechos civiles aplicables y no discrimina por motivos de raza, color, origen nacional, edad, discapacidad o sexo.",
+    "languageAssistanceHeading": "Asistencia lingüística gratuita",
+    "languageAssistanceIntro": "Los servicios de asistencia lingüística están disponibles gratuitamente. Llame al {phone} (TTY: {tty})."
+  },
+  "nondiscrimination": {
+    "title": "Aviso de No Discriminación",
+    "intro": "The Heart House and Vascular Care cumple con las leyes federales de derechos civiles aplicables y no discrimina por motivos de raza, color, origen nacional, edad, discapacidad o sexo. No excluimos a las personas ni las tratamos de manera diferente por su raza, color, origen nacional, edad, discapacidad o sexo.",
+    "weProvideHeading": "Ofrecemos, sin costo alguno:",
+    "aids": "Ayudas y servicios para personas con discapacidades para comunicarse eficazmente con nosotros, incluidos intérpretes calificados de lenguaje de señas e información escrita en otros formatos, como letra grande, audio o formatos electrónicos accesibles.",
+    "languageServices": "Servicios de idiomas para personas cuyo idioma principal no es el inglés, incluidos intérpretes calificados e información escrita en otros idiomas.",
+    "requestServices": "Si necesita estos servicios, comuníquese con nuestra oficina al {phone} (TTY: {tty}).",
+    "grievanceHeading": "Cómo presentar una queja",
+    "grievanceBody": "Si cree que The Heart House and Vascular Care no le ha proporcionado estos servicios o lo ha discriminado de otra manera por motivos de raza, color, origen nacional, edad, discapacidad o sexo, puede presentar una queja ante nuestra oficina. Llame al {phone} (TTY: {tty}) y pregunte por el administrador de la práctica. Puede presentarla en persona, por correo, por fax o por teléfono, y podemos ayudarle a completarla.",
+    "ocrHeading": "Presentar una queja ante el gobierno de los EE. UU.",
+    "ocrBody": "También puede presentar una queja de derechos civiles ante la Oficina de Derechos Civiles del Departamento de Salud y Servicios Humanos de los EE. UU., electrónicamente a través del Portal de Quejas de la Oficina de Derechos Civiles, o por correo o teléfono. Los formularios de queja están disponibles en línea.",
+    "ocrPortal": "Portal de Quejas de la Oficina de Derechos Civiles",
+    "ocrForms": "Formularios de queja",
+    "taglinesHeading": "Asistencia lingüística",
+    "taglinesIntro": "Los servicios gratuitos de asistencia lingüística, incluidos intérpretes calificados, están disponibles sin costo alguno. Llame al {phone} (TTY: {tty}) e indíquenos qué idioma habla."
+  },
+  "accessibility": {
+    "title": "Declaración de Accesibilidad",
+    "commitment": "The Heart House and Vascular Care se compromete a que esta aplicación sea utilizable por todos, incluidas las personas que usan lectores de pantalla, navegación por teclado, ampliación u otra tecnología de asistencia.",
+    "standardHeading": "Estándar al que aspiramos",
+    "standardBody": "Nuestro objetivo es cumplir con las Pautas de Accesibilidad para el Contenido Web (WCAG) 2.1 Nivel AA. Esta aplicación está diseñada primero para móviles, con objetivos táctiles grandes, foco de teclado visible, un enlace para saltar al contenido, alternativas de texto para las imágenes y contraste de color verificado según el umbral AA.",
+    "limitationsHeading": "Limitaciones conocidas",
+    "limitationsBody": "Parte del contenido lo proporcionan terceros y está fuera de nuestro control directo, incluidos el mapa de Google incorporado, las reseñas de Google y los sitios del portal del paciente, programación y pago de facturas a los que enlazamos. Si tiene problemas con alguno de estos, llámenos y un miembro del personal le ayudará a completar la tarea por teléfono.",
+    "feedbackHeading": "Infórmenos de un problema",
+    "feedbackBody": "Si encuentra una barrera de accesibilidad en esta aplicación, queremos saberlo. Llame al {phone} (TTY: {tty}) y pregunte por el administrador de la práctica. Indíquenos en qué página estaba y qué sucedió, y le responderemos y trabajaremos para solucionarlo.",
+    "alternativeBody": "Todo lo que puede hacer en esta aplicación también lo puede hacer por teléfono. Llame al {phone} durante el horario de oficina y nuestro personal programará citas, dará indicaciones, responderá preguntas sobre la preparación para pruebas o le leerá la información.",
+    "alternativeHeading": "Otra forma de comunicarse con nosotros"
   }
 }

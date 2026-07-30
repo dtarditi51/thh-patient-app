@@ -1,11 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
-import { useTranslations, useLocale } from "next-intl";
+import { Link } from "@/navigation";
+import { useTranslations } from "next-intl";
 import { MapPin, Phone, Navigation2 } from "lucide-react";
-import { locations } from "@/data/locations";
+import { locations, directionsUrl } from "@/data/locations";
 import { haversineMiles } from "@/lib/officeHours";
+import { track } from "@/lib/analytics";
 import { OfficeStatusLabel } from "./OfficeStatusLabel";
 import { OfficeStatusTickProvider } from "./OfficeStatusTickProvider";
 
@@ -17,7 +18,6 @@ type GeoState =
 
 export function LocationCards() {
   const t = useTranslations("locations");
-  const locale = useLocale();
   const [geo, setGeo] = useState<GeoState>({ status: "idle" });
 
   const sorted = useMemo(() => {
@@ -70,16 +70,24 @@ export function LocationCards() {
               key={loc.slug}
               className="relative rounded-xl bg-white p-4 ring-1 ring-thh-line hover:bg-thh-surface"
             >
-              <Link
-                href={`/${locale}/locations/${loc.slug}`}
-                className="absolute inset-0 rounded-xl"
-                aria-label={loc.name}
-              />
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5">
-                    <MapPin className="h-4 w-4 text-thh-red" />
-                    <span className="text-sm font-medium">{loc.name}</span>
+                    <MapPin className="h-4 w-4 shrink-0 text-thh-red" aria-hidden="true" />
+                    {/*
+                      The whole card is tappable via after:inset-0 on this link
+                      rather than a separate absolutely-positioned overlay <Link>.
+                      The overlay version gave screen readers a bare "Haddon
+                      Heights, link" and orphaned the address and open/closed
+                      status from it. Here the link keeps its place in the reading
+                      order and the pseudo-element carries the hit area.
+                    */}
+                    <Link
+                      href={`/locations/${loc.slug}`}
+                      className="text-sm font-medium after:absolute after:inset-0 after:rounded-xl"
+                    >
+                      {loc.name}
+                    </Link>
                     {miles !== null && (
                       <span className="pill bg-thh-red-50 text-thh-red-dark">
                         {t("distanceMiles", { distance: miles.toFixed(1) })}
@@ -92,13 +100,32 @@ export function LocationCards() {
                     <OfficeStatusLabel hours={loc.hours} />
                   </div>
                 </div>
-                <a
-                  href={`tel:${loc.phone}`}
-                  className="relative z-10 flex flex-col items-end gap-1"
-                >
-                  <Phone className="h-5 w-5 text-thh-red" />
-                  <span className="text-[11px] text-thh-muted">{loc.phone}</span>
-                </a>
+
+                {/* z-10 lifts these above the card-wide pseudo-element hit area. */}
+                <div className="relative z-10 flex shrink-0 flex-col items-stretch gap-1.5">
+                  <a
+                    href={`tel:${loc.phone}`}
+                    onClick={() => track("tel_tap", { source: "location_list", office: loc.slug })}
+                    className="inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-full bg-thh-red-50 px-3 text-xs font-medium text-thh-red"
+                    aria-label={`${t("call")} ${loc.name}: ${loc.phone}`}
+                  >
+                    <Phone className="h-4 w-4" aria-hidden="true" />
+                    {t("call")}
+                  </a>
+                  <a
+                    href={directionsUrl(loc)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      track("directions_click", { source: "location_list", office: loc.slug })
+                    }
+                    className="inline-flex min-h-[44px] items-center justify-center gap-1.5 rounded-full px-3 text-xs font-medium text-thh-ink ring-1 ring-thh-line hover:bg-thh-surface"
+                    aria-label={`${t("directions")} — ${loc.name}`}
+                  >
+                    <Navigation2 className="h-4 w-4" aria-hidden="true" />
+                    {t("directions")}
+                  </a>
+                </div>
               </div>
             </div>
           ))}

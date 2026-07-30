@@ -35,7 +35,9 @@
       "directions": "Get directions",
       "appointmentSubtitle": "Same-day appointments available",
       "testPrep": "Prep for your test",
-      "testPrepSubtitle": "Nuclear stress, PET/CT, MUGA"
+      "testPrepSubtitle": "Nuclear stress, PET/CT, MUGA",
+      "formsSubtitle": "Complete before your visit",
+      "paySubtitle": "Patient Notebook"
     },
     "education": {
       "title": "Learn about your heart",
@@ -61,7 +63,10 @@
     "backToList": "All cardiologists",
     "practicesAt": "Practices at",
     "viewOnSite": "View profile on hearthousenj.com",
-    "reviewsComingSoon": "Verified patient reviews from post-visit surveys will appear here soon."
+    "reviewsComingSoon": "Verified patient reviews from post-visit surveys will appear here soon.",
+    "searchLabel": "Search providers by name",
+    "filterLocationGroup": "Filter by location",
+    "filterSpecialtyGroup": "Filter by specialty"
   },
   "locations": {
     "title": "Locations",
@@ -133,7 +138,8 @@
       "cureLabel": "with catheter ablation",
       "calloutTitle": "During an episode",
       "calloutBody": "Only if your care team has shown you how: bear down like a bowel movement, or blow hard against a closed mouth and nose. Ask us which maneuver is right for you."
-    }
+    },
+    "fullGuideEnglishOnly": "Full guide on CardioSmart (English only)"
   },
   "portal": {
     "title": "Patient portal",
@@ -144,7 +150,17 @@
     "testResults": "View test results",
     "messages": "Message my care team",
     "refills": "Refill prescription",
-    "appointments": "My appointments"
+    "appointments": "My appointments",
+    "push": {
+      "title": "Get appointment reminders",
+      "body": "Optional push notifications for upcoming appointments and new portal messages. We never send clinical details.",
+      "enable": "Enable notifications",
+      "enabling": "Enabling…",
+      "enabled": "Notifications are on",
+      "blocked": "Notifications are blocked in your browser settings.",
+      "unsupported": "Your browser doesn't support notifications.",
+      "error": "We couldn't turn on notifications. Please try again."
+    }
   },
   "reviews": {
     "google": "Google reviews",
@@ -155,7 +171,10 @@
     "poweredByGoogle": "Reviews powered by Google",
     "homepageHeading": "What patients are saying",
     "homepageSubhead": "Reviews from our Marlton office on Google",
-    "seeAllAtMarlton": "See all Marlton reviews"
+    "seeAllAtMarlton": "See all Marlton reviews",
+    "googleCount": "{count, plural, one {# Google review} other {# Google reviews}}",
+    "rater8BasedOn": "Based on {count} verified patient reviews",
+    "rater8Attribution": "Verified by Rater8 from post-visit surveys. HIPAA-compliant."
   },
   "appointment": {
     "hero": {
@@ -181,7 +200,10 @@
     "loading": "Loading…",
     "language": "Language",
     "english": "English",
-    "spanish": "Español"
+    "spanish": "Español",
+    "call": "Call",
+    "callAria": "Call {phone}",
+    "skipToContent": "Skip to main content"
   },
   "pwa": {
     "install": {
@@ -232,7 +254,8 @@
     "leadership": {
       "heading": "Leadership",
       "subhead": "Physician-owned and physician-led.",
-      "viewProfile": "View profile"
+      "viewProfile": "View profile",
+      "pending": "Leadership roster pending."
     },
     "affiliations": {
       "heading": "Hospital affiliations",
@@ -243,6 +266,70 @@
       "heading": "Ready to meet our team?",
       "findDoctor": "Find a cardiologist",
       "findLocation": "Find a location"
+    },
+    "metaDescription": "Physician-owned cardiology across southern New Jersey since 1979. 34 board-certified cardiologists, 6 offices, privileges at Cooper, Jefferson, Virtua, Inspira, and Our Lady of Lourdes."
+  },
+  "errors": {
+    "notFound": {
+      "title": "We couldn't find that page",
+      "body": "The link may be out of date or the page may have moved. Try the home page, or call us and we'll point you the right way.",
+      "home": "Go to home page",
+      "findDoctor": "Find a doctor"
+    },
+    "callIntro": "Need to reach us?",
+    "error": {
+      "title": "Something went wrong",
+      "body": "We hit an unexpected problem loading this page. Trying again usually fixes it.",
+      "retry": "Try again"
     }
+  },
+  "footer": {
+    "practiceName": "The Heart House and Vascular Care",
+    "tagline": "Cardiovascular care across southern New Jersey since 1979.",
+    "policiesHeading": "Policies",
+    "contactHeading": "Contact",
+    "privacy": "Privacy policy",
+    "hipaa": "HIPAA notice",
+    "npp": "Notice of Privacy Practices",
+    "nppEs": "Aviso de Prácticas de Privacidad",
+    "terms": "Terms of use",
+    "nondiscrimination": "Nondiscrimination notice",
+    "accessibility": "Accessibility statement",
+    "mainLine": "Main line",
+    "tty": "TTY",
+    "emergency": "If this is a medical emergency, call 911. Do not use this app to report an emergency.",
+    "notMedicalAdvice": "This app provides general health education and does not replace medical advice from your care team.",
+    "copyright": "© {year} The Heart House and Vascular Care. All rights reserved.",
+    "nondiscriminationShort": "The Heart House and Vascular Care complies with applicable federal civil rights laws and does not discriminate on the basis of race, color, national origin, age, disability, or sex.",
+    "languageAssistanceHeading": "Free language assistance",
+    "languageAssistanceIntro": "Language assistance services are available free of charge. Call {phone} (TTY: {tty})."
+  },
+  "nondiscrimination": {
+    "title": "Notice of Nondiscrimination",
+    "intro": "The Heart House and Vascular Care complies with applicable federal civil rights laws and does not discriminate on the basis of race, color, national origin, age, disability, or sex. We do not exclude people or treat them differently because of race, color, national origin, age, disability, or sex.",
+    "weProvideHeading": "We provide, free of charge:",
+    "aids": "Aids and services to people with disabilities to communicate effectively with us, including qualified sign language interpreters and written information in other formats such as large print, audio, or accessible electronic formats.",
+    "languageServices": "Language services to people whose primary language is not English, including qualified interpreters and information written in other languages.",
+    "requestServices": "If you need these services, contact our office at {phone} (TTY: {tty}).",
+    "grievanceHeading": "How to file a grievance",
+    "grievanceBody": "If you believe that The Heart House and Vascular Care has failed to provide these services or discriminated in another way on the basis of race, color, national origin, age, disability, or sex, you can file a grievance with our office. Call {phone} (TTY: {tty}) and ask for the practice administrator. You can file in person, by mail, by fax, or by phone, and we can help you complete the grievance.",
+    "ocrHeading": "File a complaint with the U.S. government",
+    "ocrBody": "You can also file a civil rights complaint with the U.S. Department of Health and Human Services, Office for Civil Rights, electronically through the Office for Civil Rights Complaint Portal, or by mail or phone. Complaint forms are available online.",
+    "ocrPortal": "Office for Civil Rights Complaint Portal",
+    "ocrForms": "Complaint forms",
+    "taglinesHeading": "Language assistance",
+    "taglinesIntro": "Free language assistance services, including qualified interpreters, are available to you at no cost. Call {phone} (TTY: {tty}) and tell us what language you speak."
+  },
+  "accessibility": {
+    "title": "Accessibility Statement",
+    "commitment": "The Heart House and Vascular Care is committed to making this app usable by everyone, including people who use screen readers, keyboard navigation, magnification, or other assistive technology.",
+    "standardHeading": "Standard we aim for",
+    "standardBody": "We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA. This app is built mobile-first with large tap targets, visible keyboard focus, a skip-to-content link, text alternatives for images, and color contrast checked against the AA threshold.",
+    "limitationsHeading": "Known limitations",
+    "limitationsBody": "Some content is provided by third parties and is outside our direct control, including the embedded Google map, Google reviews, and the patient portal, scheduling, and bill-pay sites we link to. If you have trouble with any of these, call us and a staff member will help you complete the task by phone.",
+    "feedbackHeading": "Tell us about a problem",
+    "feedbackBody": "If you run into an accessibility barrier in this app, we want to hear about it. Call {phone} (TTY: {tty}) and ask for the practice administrator. Please tell us the page you were on and what happened, and we will respond and work to fix it.",
+    "alternativeBody": "Anything you can do in this app you can also do by phone. Call {phone} during office hours and our staff will schedule appointments, give directions, answer test-prep questions, or read information to you.",
+    "alternativeHeading": "Another way to reach us"
   }
 }

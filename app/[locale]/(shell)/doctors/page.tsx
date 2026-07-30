@@ -50,27 +50,39 @@ export default function DoctorsPage() {
     <div className="container-app space-y-4 py-4">
       <div>
         <h1 className="text-2xl font-medium">{t("title")}</h1>
-        <p className="text-sm text-thh-muted">{t("count", { count: totalShown })}</p>
+        {/* Typing in the search silently rewrote this list for screen-reader
+            users. aria-live announces the new count as filters change. */}
+        <p className="text-sm text-thh-muted" aria-live="polite" role="status">
+          {t("count", { count: totalShown })}
+        </p>
       </div>
 
-      <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 ring-1 ring-thh-line">
-        <Search className="h-4 w-4 text-thh-muted" />
+      <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 ring-1 ring-thh-line focus-within:ring-2 focus-within:ring-thh-red">
+        <Search className="h-4 w-4 text-thh-muted" aria-hidden="true" />
+        <label htmlFor="provider-search" className="sr-only">
+          {t("searchLabel")}
+        </label>
+        {/* outline-none is intentional HERE only because the wrapper shows the
+            focus ring via focus-within. Previously it removed the outline with
+            nothing in its place, making this input invisible to keyboard users. */}
         <input
+          id="provider-search"
+          type="search"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder={t("searchPlaceholder")}
-          className="flex-1 bg-transparent text-sm outline-none"
+          className="min-h-[44px] flex-1 bg-transparent text-sm outline-none"
         />
       </div>
 
-      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
+      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1" role="group" aria-label={t("filterLocationGroup")}>
         <Chip label={t("filterAll")} active={locationFilter === "all"} onClick={() => setLocationFilter("all")} />
         {locations.map((loc) => (
           <Chip key={loc.slug} label={loc.name} active={locationFilter === loc.slug} onClick={() => setLocationFilter(loc.slug)} />
         ))}
       </div>
 
-      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1">
+      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1" role="group" aria-label={t("filterSpecialtyGroup")}>
         <Chip label={t("filterSpecialty")} active={specFilter === "all"} onClick={() => setSpecFilter("all")} />
         {(Object.keys(subspecialtyLabels) as Subspecialty[]).map((s) => (
           <Chip key={s} label={subspecialtyLabels[s][lang]} active={specFilter === s} onClick={() => setSpecFilter(s)} />
@@ -114,8 +126,12 @@ export default function DoctorsPage() {
 function Chip({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
   return (
     <button
+      type="button"
       onClick={onClick}
-      className={`whitespace-nowrap rounded-full px-3 py-1.5 text-xs ${active ? "bg-thh-red text-white" : "bg-white text-thh-ink ring-1 ring-thh-line"}`}
+      // Selection was conveyed by background color alone, so a screen-reader
+      // user could not tell which filter was active.
+      aria-pressed={active}
+      className={`inline-flex min-h-[44px] items-center whitespace-nowrap rounded-full px-4 text-xs ${active ? "bg-thh-red text-white" : "bg-white text-thh-ink ring-1 ring-thh-line"}`}
     >
       {label}
     </button>

@@ -1,13 +1,41 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { HeartPulse, Scan, Activity, FileDown, Phone, Clock, ChevronLeft } from "lucide-react";
 import { procedures } from "@/data/procedures";
+import { absoluteUrl, truncateDescription, SITE_NAME } from "@/lib/seo";
 
 const ICONS = { "heart-pulse": HeartPulse, scan: Scan, activity: Activity };
 
 export function generateStaticParams() {
   return procedures.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params: { slug, locale }
+}: {
+  params: { slug: string; locale: string };
+}): Promise<Metadata> {
+  const p = procedures.find((x) => x.slug === slug);
+  if (!p) return {};
+  const lang = locale === "es" ? "es" : "en";
+  const title = `${lang === "es" ? p.titleEs : p.titleEn} — How to Prepare`;
+  const description = truncateDescription(lang === "es" ? p.summaryEs : p.summaryEn);
+  const url = absoluteUrl(locale, `/procedures/${p.slug}`);
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      title: `${title} | The Heart House`,
+      description,
+      url,
+      siteName: SITE_NAME
+    },
+    twitter: { card: "summary", title: `${title} | The Heart House`, description }
+  };
 }
 
 export default async function ProcedureDetailPage({ params: { slug, locale } }: { params: { slug: string; locale: string } }) {
@@ -24,13 +52,13 @@ export default async function ProcedureDetailPage({ params: { slug, locale } }: 
 
   return (
     <div className="container-app space-y-6 py-4 pb-12">
-      <Link href={`/${locale}/procedures`} className="inline-flex items-center gap-1 text-xs text-thh-red">
+      <Link href="/procedures" className="inline-flex items-center gap-1 text-xs text-thh-red">
         <ChevronLeft className="h-4 w-4" />
         {t("backToList")}
       </Link>
 
-      <div className={`flex items-center gap-4 rounded-xl p-5 procedure-bg-${p.color}`}>
-        <div className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full procedure-icon-${p.color}`}>
+      <div className={`flex items-center gap-4 rounded-xl p-5 procedure-hero-${p.color}`}>
+        <div className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full procedure-heroicon-${p.color}`}>
           <Icon className="h-7 w-7" strokeWidth={1.75} />
         </div>
         <div>
@@ -96,14 +124,6 @@ export default async function ProcedureDetailPage({ params: { slug, locale } }: 
         </a>
       </section>
 
-      <style>{`
-        .procedure-bg-red { background:#FFE8EC; }
-        .procedure-bg-blue { background:#E6F1FB; }
-        .procedure-bg-purple { background:#EEEDFE; }
-        .procedure-icon-red { background:#FFFFFF; color:#C8102E; }
-        .procedure-icon-blue { background:#FFFFFF; color:#1A6FBB; }
-        .procedure-icon-purple { background:#FFFFFF; color:#6B5BD3; }
-      `}</style>
     </div>
   );
 }

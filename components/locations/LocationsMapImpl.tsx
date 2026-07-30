@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
-import { useTranslations, useLocale } from "next-intl";
+import { Link } from "@/navigation";
+import { useTranslations } from "next-intl";
 import {
   APIProvider,
   Map,
@@ -48,7 +48,6 @@ function MapRecenter() {
 
 export function LocationsMapImpl({ apiKey }: { apiKey: string }) {
   const t = useTranslations("locations");
-  const locale = useLocale();
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
   const center = centroid(locations.map((l) => ({ lat: l.lat, lng: l.lng })));
   const mapId = process.env.NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID || "thh_locations_map";
@@ -95,7 +94,7 @@ export function LocationsMapImpl({ apiKey }: { apiKey: string }) {
                     {loc.phone}
                   </a>
                   <Link
-                    href={`/${locale}/locations/${loc.slug}`}
+                    href={`/locations/${loc.slug}`}
                     className="inline-block pt-1 text-xs font-medium text-thh-red"
                   >
                     {t("viewDetails")} →

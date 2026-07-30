@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/navigation";
 import Image from "next/image";
 import { Calendar, Star } from "lucide-react";
 import { type Provider, subspecialtyLabels, type Subspecialty } from "@/data/providers";
@@ -15,7 +15,7 @@ export function ProviderCard({
   const lang = locale as "en" | "es";
   return (
     <Link
-      href={`/${locale}/doctors/${provider.slug}`}
+      href={`/doctors/${provider.slug}`}
       className="flex items-center gap-3 rounded-xl bg-white p-3 ring-1 ring-thh-line hover:bg-thh-surface"
     >
       <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-full bg-thh-red-50">

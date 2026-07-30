@@ -1,27 +1,27 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useLocale, useTranslations } from "next-intl";
+import { Link, usePathname } from "@/navigation";
+import { useTranslations } from "next-intl";
 import { Home, Stethoscope, MapPin, BookOpen, UserCircle, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export function BottomNav() {
   const t = useTranslations("nav");
-  const locale = useLocale();
+  // Locale-agnostic pathname: "/doctors" in both languages. Comparing against a
+  // hand-built `/${locale}/doctors` is what left every tab unhighlighted in English.
   const pathname = usePathname();
 
   const tabs = [
-    { key: "home", href: `/${locale}`, label: t("home"), Icon: Home },
-    { key: "doctors", href: `/${locale}/doctors`, label: t("doctors"), Icon: Stethoscope },
-    { key: "locations", href: `/${locale}/locations`, label: t("locations"), Icon: MapPin },
-    { key: "learn", href: `/${locale}/education`, label: t("learn"), Icon: BookOpen },
-    { key: "portal", href: `/${locale}/portal`, label: t("portal"), Icon: UserCircle },
-    { key: "about", href: `/${locale}/about`, label: t("about"), Icon: Info }
+    { key: "home", href: "/", label: t("home"), Icon: Home },
+    { key: "doctors", href: "/doctors", label: t("doctors"), Icon: Stethoscope },
+    { key: "locations", href: "/locations", label: t("locations"), Icon: MapPin },
+    { key: "learn", href: "/education", label: t("learn"), Icon: BookOpen },
+    { key: "portal", href: "/portal", label: t("portal"), Icon: UserCircle },
+    { key: "about", href: "/about", label: t("about"), Icon: Info }
   ];
 
   function isActive(href: string) {
-    if (href === `/${locale}`) return pathname === `/${locale}` || pathname === "/";
+    if (href === "/") return pathname === "/";
     return pathname.startsWith(href);
   }
 
@@ -34,12 +34,13 @@ export function BottomNav() {
             <Link
               key={key}
               href={href}
+              aria-current={active ? "page" : undefined}
               className={cn(
                 "flex flex-1 flex-col items-center gap-0.5 py-2.5",
                 active ? "tab-active" : "tab-inactive"
               )}
             >
-              <Icon className="h-5 w-5" strokeWidth={active ? 2.25 : 1.75} />
+              <Icon className="h-5 w-5" strokeWidth={active ? 2.25 : 1.75} aria-hidden="true" />
               <span className="text-[10px] font-medium">{label}</span>
             </Link>
           );
