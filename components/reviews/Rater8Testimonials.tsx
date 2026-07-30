@@ -81,7 +81,9 @@ export function Rater8Testimonials({
               </span>
               <span className="ml-1 text-xs text-thh-muted">{r.date}</span>
             </div>
-            <p className="mt-1.5 text-sm text-thh-ink">"{r.text}"</p>
+            {/* Curly quotes rather than raw " — typographically correct for a
+                pulled quote, and satisfies react/no-unescaped-entities. */}
+            <p className="mt-1.5 text-sm text-thh-ink">&ldquo;{r.text}&rdquo;</p>
             <p className="mt-1 text-xs text-thh-muted">— {r.author}</p>
           </div>
         ))}
