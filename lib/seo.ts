@@ -26,7 +26,7 @@ export const PRACTICE_WEBSITE = "https://www.hearthousenj.com";
 // NOTE: hearthousenj.app is a separate GSC property from hearthousenj.com.
 // Whatever verification the practice already has for the main site does not
 // carry over to this domain.
-export const GOOGLE_SITE_VERIFICATION = "";
+export const GOOGLE_SITE_VERIFICATION = "K5-DKl8WLVaUgyOTFJtQ_ZmrFP_-UAHRTqqGGWXe9HY";
 
 /** Absolute URL for a locale-prefixed path, matching localePrefix "as-needed". */
 export function absoluteUrl(locale: string, path: string) {
