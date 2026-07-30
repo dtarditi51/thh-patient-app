@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import { Analytics } from "@vercel/analytics/next";
 import { locales } from "@/i18n";
 import "../globals.css";
 
@@ -41,7 +42,10 @@ export default function RootLayout({ children, params: { locale } }: { children:
   setRequestLocale(locale);
   return (
     <html lang={locale} className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
