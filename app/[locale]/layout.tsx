@@ -5,7 +5,12 @@ import { notFound } from "next/navigation";
 import { Analytics } from "@vercel/analytics/next";
 import { locales } from "@/i18n";
 import { isIndexableLocale } from "@/lib/launchFlags";
-import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/seo";
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_DESCRIPTION,
+  GOOGLE_SITE_VERIFICATION
+} from "@/lib/seo";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -35,6 +40,15 @@ export async function generateMetadata({
     robots: indexable
       ? { index: true, follow: true }
       : { index: false, follow: false, nocache: true },
+    // Google Search Console ownership verification. Renders
+    // <meta name="google-site-verification"> only when the token is set, so
+    // this is a no-op until someone pastes one in lib/seo.ts.
+    //
+    // hearthousenj.app is a SEPARATE GSC property from hearthousenj.com —
+    // verifying one does not verify the other.
+    ...(GOOGLE_SITE_VERIFICATION
+      ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
+      : {}),
     icons: {
       icon: [
         { url: "/icon-16.png", sizes: "16x16", type: "image/png" },

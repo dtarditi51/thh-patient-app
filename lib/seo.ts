@@ -13,6 +13,21 @@ export const SITE_DESCRIPTION =
 
 export const PRACTICE_WEBSITE = "https://www.hearthousenj.com";
 
+// Google Search Console ownership token for hearthousenj.app.
+//
+// Paste the value from GSC's "HTML tag" verification method here — just the
+// content string, not the whole <meta> tag. Then redeploy and click Verify.
+// Empty means no verification tag is emitted at all.
+//
+// Not an env var on purpose: this token is public by design (it ships in the
+// page HTML), and this project's Vercel CLI has a known bug adding Preview env
+// vars, so a committed constant is the lower-friction path here.
+//
+// NOTE: hearthousenj.app is a separate GSC property from hearthousenj.com.
+// Whatever verification the practice already has for the main site does not
+// carry over to this domain.
+export const GOOGLE_SITE_VERIFICATION = "";
+
 /** Absolute URL for a locale-prefixed path, matching localePrefix "as-needed". */
 export function absoluteUrl(locale: string, path: string) {
   const clean = path === "/" ? "" : path.startsWith("/") ? path : `/${path}`;
