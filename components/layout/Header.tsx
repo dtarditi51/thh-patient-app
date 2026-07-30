@@ -3,7 +3,11 @@
 import { useTranslations, useLocale } from "next-intl";
 import { Link, usePathname, useRouter } from "@/navigation";
 import { Phone, Globe, HeartPulse } from "lucide-react";
-import { PRACTICE_MAIN_PHONE, PRACTICE_MAIN_PHONE_DISPLAY } from "@/lib/practiceInfo";
+import {
+  HEADER_PHONE,
+  HEADER_PHONE_DISPLAY,
+  HEADER_PHONE_OFFICE
+} from "@/lib/practiceInfo";
 import { SHOW_LANGUAGE_TOGGLE } from "@/lib/launchFlags";
 import { track } from "@/lib/analytics";
 
@@ -43,14 +47,16 @@ export function Header() {
               {locale === "en" ? "ES" : "EN"}
             </button>
           )}
+          {/* Header pill uses HEADER_PHONE (Elmer), not PRACTICE_MAIN_PHONE.
+              See the rationale on HEADER_PHONE in lib/practiceInfo.ts. */}
           <a
-            href={`tel:${PRACTICE_MAIN_PHONE}`}
-            onClick={() => track("tel_tap", { source: "header" })}
+            href={`tel:${HEADER_PHONE}`}
+            onClick={() => track("tel_tap", { source: "header", office: HEADER_PHONE_OFFICE })}
             className="flex min-h-[44px] items-center gap-1.5 rounded-full bg-thh-red-50 px-3 text-xs font-medium text-thh-red"
-            aria-label={t("callAria", { phone: PRACTICE_MAIN_PHONE_DISPLAY })}
+            aria-label={t("callAria", { phone: HEADER_PHONE_DISPLAY })}
           >
             <Phone className="h-3.5 w-3.5" aria-hidden="true" />
-            <span className="hidden sm:inline">{PRACTICE_MAIN_PHONE_DISPLAY}</span>
+            <span className="hidden sm:inline">{HEADER_PHONE_DISPLAY}</span>
             <span className="sm:hidden">{t("call")}</span>
           </a>
         </div>

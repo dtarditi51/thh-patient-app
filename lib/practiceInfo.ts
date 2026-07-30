@@ -11,6 +11,29 @@ export const PRACTICE_MAIN_PHONE_DISPLAY = "(856) 546-3003";
 // TODO: confirm whether main-line call hours match office hours (8am-5pm M-F per data/locations.ts).
 export const PRACTICE_HOURS_DISPLAY = "Monday through Friday, 8am to 5pm";
 
+// Phone shown in the sticky header pill ONLY. Everything else in the app —
+// footer, appointment page, 404/offline fallback, Section 1557 grievance
+// contact, and the MedicalOrganization JSON-LD — stays on PRACTICE_MAIN_PHONE,
+// so the app's structured data still matches the Google Business Profile,
+// hearthousenj.com, and printed materials (NAP consistency drives local-pack
+// ranking).
+//
+// Why Elmer: it's the lowest-volume office that has its OWN dedicated line
+// (~478 Google reviews vs Sewell's 1,064), so it's the most likely to pick up
+// promptly. Deliberately NOT 856-582-2000 — that number is shared between
+// Woodbury and Sewell, and Sewell is the busiest office in the practice, so it
+// would have routed header taps to the most congested line.
+//
+// Tradeoff being accepted (per Dr. Tarditi, 2026-07-30): Elmer is the
+// southernmost office, so a Haddon Heights or Marlton patient tapping the
+// header reaches a desk 30+ miles away that has no context on them. Revisit
+// once `tel_tap` data lands — events carry `office`, so header-tap volume and
+// any change in misrouted calls will be visible.
+export const HEADER_PHONE = "856-358-2363";
+export const HEADER_PHONE_DISPLAY = "(856) 358-2363";
+/** Office slug behind HEADER_PHONE, for analytics attribution. */
+export const HEADER_PHONE_OFFICE = "elmer";
+
 // TODO: confirm exact confirmation-window wording with practice ops.
 export const APPOINTMENT_CONFIRMATION_WINDOW = "within one business day";
 
