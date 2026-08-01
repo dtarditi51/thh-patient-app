@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { hardResetAndReload, isChunkLoadError, reloadOnChunkError } from "@/lib/chunkReload";
 
 // Last-resort boundary: catches errors thrown in the root layout itself, which
 // means it REPLACES that layout. globals.css is imported by
@@ -14,8 +15,12 @@ export default function GlobalError({
   reset: () => void;
 }) {
   useEffect(() => {
+    // See lib/chunkReload: a stale tab after a deploy needs a reload, not reset().
+    if (reloadOnChunkError(error)) return;
     console.error("Global error boundary:", error.digest ?? error.message);
   }, [error]);
+
+  const staleBuild = isChunkLoadError(error);
 
   return (
     <html lang="en">
@@ -47,14 +52,15 @@ export default function GlobalError({
             The Heart House &amp; Vascular Care
           </p>
           <h1 style={{ margin: "1rem 0 0.5rem", fontSize: "1.25rem", fontWeight: 500 }}>
-            Something went wrong
+            {staleBuild ? "Let's refresh the app" : "Something went wrong"}
           </h1>
           <p style={{ margin: 0, fontSize: "0.875rem", lineHeight: 1.6, color: "#5A5A5A" }}>
-            We hit an unexpected problem. Trying again usually fixes it. If it keeps
-            happening, please call us.
+            {staleBuild
+              ? "A newer version of the app is available. Refreshing loads it and should clear this. If it keeps happening, please call us."
+              : "We hit an unexpected problem. Trying again usually fixes it. If it keeps happening, please call us."}
           </p>
           <button
-            onClick={reset}
+            onClick={staleBuild ? () => void hardResetAndReload() : reset}
             style={{
               marginTop: "1.25rem",
               width: "100%",
@@ -68,7 +74,7 @@ export default function GlobalError({
               cursor: "pointer"
             }}
           >
-            Try again
+            {staleBuild ? "Refresh" : "Try again"}
           </button>
           <div style={{ marginTop: "1.25rem", borderTop: "1px solid #E5E5E0", paddingTop: "1rem" }}>
             <p style={{ margin: 0, fontSize: "0.75rem", color: "#5A5A5A" }}>Need to reach us?</p>
